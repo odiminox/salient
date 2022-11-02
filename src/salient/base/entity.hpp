@@ -76,22 +76,22 @@ class Entity {
 };
 
 // a rectangular zone in the world
-class Rect : public Entity {
+class RectZone : public Entity {
  public:
   int w{};
   int h{};
 
-  Rect() = default;
-  Rect(int x, int y, int pw, int ph) noexcept
+  RectZone() = default;
+  RectZone(int x, int y, int pw, int ph) noexcept
       : Entity(gsl::narrow_cast<float>(x), gsl::narrow_cast<float>(y)), w(pw), h(ph) {}
-  Rect(float x, float y, int pw, int ph) noexcept : Entity{x, y}, w{pw}, h{ph} {}
+  RectZone(float x, float y, int pw, int ph) noexcept : Entity{x, y}, w{pw}, h{ph} {}
   bool pointInside(float px, float py) const noexcept { return (px >= x && py >= y && px < x + w && py < y + h); }
   bool pointInside(const Entity& pt) const noexcept { return pointInside(pt.x, pt.y); }
-  bool isIntersecting(const Rect& r) const noexcept {
+  bool isIntersecting(const RectZone& r) const noexcept {
     return !(r.x > x + w || r.x + r.w < x || r.y > y + h || r.y + r.h < y);
   }
   // smallest rectangle containing this and r
-  void merge(const Rect& r) noexcept {
+  void merge(const RectZone& r) noexcept {
     float minx = std::min(x, r.x);
     float maxx = std::max(x + w, r.x + r.w);
     float miny = std::min(y, r.y);
@@ -102,7 +102,7 @@ class Rect : public Entity {
     h = gsl::narrow_cast<int>(maxy - miny);
   }
   // intersection of this and r
-  void intersect(const Rect& r) noexcept {
+  void intersect(const RectZone& r) noexcept {
     float minx = std::max(x, r.x);
     float maxx = std::min(x + w, r.x + r.w);
     float miny = std::max(y, r.y);
