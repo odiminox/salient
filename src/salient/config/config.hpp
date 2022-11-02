@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,30 +38,23 @@
 #include "base/font.hpp"
 
 namespace config {
-enum UmbraLogLevel {
-  UMBRA_LOGLEVEL_INFO,
-  UMBRA_LOGLEVEL_NOTICE,
-  UMBRA_LOGLEVEL_WARN,
-  UMBRA_LOGLEVEL_ERROR,
-  UMBRA_LOGLEVEL_FATAL,
-  UMBRA_LOGLEVEL_NONE
-};
+enum LogLevel { LOGLEVEL_INFO, LOGLEVEL_NOTICE, LOGLEVEL_WARN, LOGLEVEL_ERROR, LOGLEVEL_FATAL, LOGLEVEL_NONE };
 
-class UmbraConfig {
-  friend class UmbraEngine;
-  friend class UmbraLog;
+class Config {
+  friend class Engine;
+  friend class Log;
 
  public:
   static inline int rootWidth{};
   static inline int rootHeight{};
   static inline bool fullScreen{};
-  static inline UmbraLogLevel logLevel{UMBRA_LOGLEVEL_INFO};
-  static inline const base::UmbraFont* font{};
+  static inline LogLevel logLevel{LOGLEVEL_INFO};
+  static inline const base::Font* font{};
   static inline std::filesystem::path fileName{};
   static inline std::filesystem::path fontDir{};
   static inline const char* moduleChain{};
   static inline int fontID{};
-  static inline std::vector<base::UmbraFont> fonts{};
+  static inline std::vector<base::Font> fonts{};
 
   // private:
   /**
@@ -86,8 +79,8 @@ class UmbraConfig {
    * Adds a font to the registered fonts list
    * @param new_font the font object to be added to the list
    */
-  static void registerFont(const base::UmbraFont& new_font);
-  [[deprecated]] static void registerFont(base::UmbraFont* new_font) { registerFont(*new_font); }
+  static void registerFont(const base::Font& new_font);
+  [[deprecated]] static void registerFont(base::Font* new_font) { registerFont(*new_font); }
 };
 }  // namespace config
 #endif

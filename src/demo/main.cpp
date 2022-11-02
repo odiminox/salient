@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,11 +41,11 @@
 #include "panel.hpp"
 #include "rabbit.hpp"
 
-engine::UmbraEngine salient_engine("data/cfg/salient.txt", engine::UMBRA_REGISTER_ALL);
+engine::Engine salient_engine("data/cfg/salient.txt", engine::REGISTER_ALL);
 
-class ModuleFactory : public module::UmbraModuleFactory {
+class ModuleFactory : public module::ModuleFactory {
  public:
-  module::UmbraModule* createModule(const char* name) {
+  module::Module* createModule(const char* name) {
     if (strcmp(name, "matrix") == 0)
       return new Matrix();
     else if (strcmp(name, "demo") == 0)
@@ -66,7 +66,7 @@ class ModuleFactory : public module::UmbraModuleFactory {
 int main(int argc, char* argv[]) {
   // set window title
   salient_engine.setWindowTitle("Salient demo");
-  salient_engine.setKeyboardMode(engine::UMBRA_KEYBOARD_SDL);
+  salient_engine.setKeyboardMode(engine::KEYBOARD_SDL);
   // initialise and run the engine
   if (salient_engine.loadModuleConfiguration("data/cfg/module.txt", new ModuleFactory()) && salient_engine.initialise())
     return salient_engine.run();

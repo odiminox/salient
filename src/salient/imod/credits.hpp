@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,8 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef UMBRA_IMOD_CREDITS_HPP
-#define UMBRA_IMOD_CREDITS_HPP
+#ifndef SALIENT_IMOD_CREDITS_HPP
+#define SALIENT_IMOD_CREDITS_HPP
 #include <libtcod/console.hpp>
 
 #include "base/point.hpp"
@@ -38,11 +38,11 @@
 #include "module/module.hpp"
 
 namespace imod {
-class UmbraModCredits : public module::UmbraModule {
-  friend void engine::UmbraEngine::printCredits(int x, int y, uint32_t duration);
+class ModCredits : public module::Module {
+  friend void engine::Engine::printCredits(int x, int y, uint32_t duration);
 
  public:
-  UmbraModCredits();
+  ModCredits();
   bool update() override;
   void render() override;
   void onActivate() override;
@@ -51,10 +51,10 @@ class UmbraModCredits : public module::UmbraModule {
  private:
   void set(int x, int y, uint32_t duration);
   TCODConsole* con;
-  base::UmbraPoint coords;
+  base::Point coords;
   uint32_t startTime;
   float alpha;
   uint32_t duration;
 };
 }  // namespace imod
-#endif /* UMBRA_IMOD_CREDITS_HPP */
+#endif /* SALIENT_IMOD_CREDITS_HPP */

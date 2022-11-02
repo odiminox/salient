@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,52 +40,52 @@
 #include "logger/log.hpp"
 
 namespace module {
-void UmbraModule::setActive(bool active) {
-  if (status_ == UMBRA_UNINITIALISED) {
+void Module::setActive(bool active) {
+  if (status_ == UNINITIALISED) {
     onInitialise();
-    status_ = UMBRA_INACTIVE;
+    status_ = INACTIVE;
   }
-  if (active && status_ == UMBRA_INACTIVE) {
-    status_ = UMBRA_ACTIVE;
+  if (active && status_ == INACTIVE) {
+    status_ = ACTIVE;
     onActivate();
-  } else if (!active && status_ >= UMBRA_ACTIVE) {
-    status_ = UMBRA_INACTIVE;
+  } else if (!active && status_ >= ACTIVE) {
+    status_ = INACTIVE;
     onDeactivate();
   }
 }
 
-void UmbraModule::setPause(bool paused) {
-  if (status_ == UMBRA_UNINITIALISED) {
+void Module::setPause(bool paused) {
+  if (status_ == UNINITIALISED) {
     onInitialise();
-    status_ = UMBRA_INACTIVE;
+    status_ = INACTIVE;
   }
-  if (paused && status_ != UMBRA_PAUSED) {
-    status_ = UMBRA_PAUSED;
+  if (paused && status_ != PAUSED) {
+    status_ = PAUSED;
     onPause();
-  } else if (!paused && status_ == UMBRA_PAUSED) {
-    status_ = UMBRA_ACTIVE;
+  } else if (!paused && status_ == PAUSED) {
+    status_ = ACTIVE;
     onResume();
   }
 }
 
-void UmbraModule::initialiseTimeout() {
+void Module::initialiseTimeout() {
   if (timeout_ == 0)
     return;
   else
     timeout_end_ = SDL_GetTicks() + timeout_;
 }
 
-void UmbraModule::setFallback(const char* module_name) {
-  UmbraModule* mod = getEngine()->getModule(module_name);
+void Module::setFallback(const char* module_name) {
+  Module* mod = getEngine()->getModule(module_name);
   if (mod) {
     setFallback(mod->getID());
   } else {
-    logger::UmbraLog::error("UmbraModule::setFallback | Unknown module \"%s\".", module_name);
+    logger::Log::error("Module::setFallback | Unknown module \"%s\".", module_name);
   }
 }
 
-void UmbraModule::setParameter(std::string_view param_name, TCOD_value_t value) {
-  for (UmbraModuleParameter& it : params_) {
+void Module::setParameter(std::string_view param_name, TCOD_value_t value) {
+  for (ModuleParameter& it : params_) {
     if (it.name == param_name) {
       // already exists. update value
       // this happens when value is overriden in module.cfg
@@ -93,16 +93,16 @@ void UmbraModule::setParameter(std::string_view param_name, TCOD_value_t value) 
       return;
     }
   }
-  params_.emplace_back(UmbraModuleParameter{std::string{param_name}, value});
+  params_.emplace_back(ModuleParameter{std::string{param_name}, value});
 }
 
-UmbraModule::UmbraModuleParameter& UmbraModule::getParameter(std::string_view param_name) {
-  static UmbraModuleParameter def = {"", {0}};
-  for (UmbraModuleParameter& it : params_) {
+Module::ModuleParameter& Module::getParameter(std::string_view param_name) {
+  static ModuleParameter def = {"", {0}};
+  for (ModuleParameter& it : params_) {
     if (it.name == param_name) return it;
   }
   return def;
 }
 
-auto UmbraModule::getEngine() -> engine::UmbraEngine* { return engine::UmbraEngine::getInstance(); }
+auto Module::getEngine() -> engine::Engine* { return engine::Engine::getInstance(); }
 }  // namespace module

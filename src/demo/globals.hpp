@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,4 +34,4 @@
 
 enum { MOD_MATRIX, MOD_DEMO, MOD_RABBIT, MOD_PANEL, MOD_CREDITS };
 
-extern engine::UmbraEngine salient_engine;
+extern engine::Engine salient_engine;

@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,9 +33,9 @@
 #include <libtcod/mouse_types.h>
 
 namespace base {
-struct UmbraPoint {
-  constexpr UmbraPoint() noexcept = default;
-  constexpr UmbraPoint(int new_x, int new_y) noexcept : x{new_x}, y{new_y} {}
+struct Point {
+  constexpr Point() noexcept = default;
+  constexpr Point(int new_x, int new_y) noexcept : x{new_x}, y{new_y} {}
   /**
    * Sets the point's coordinates.
    * @param x the point's <i>x</i> coordinate
@@ -57,7 +57,7 @@ struct UmbraPoint {
    * @param p the point to be checked against
    * @return <code>true</code> if the coordinates match, <code>false</code> if they don't
    */
-  [[nodiscard]] constexpr bool is(const UmbraPoint& p) const noexcept { return *this == p; }
+  [[nodiscard]] constexpr bool is(const Point& p) const noexcept { return *this == p; }
   /**
    * Sets the <code>mouseHover</code> and <code>mouseDown</code> statuses for the rectangle.
    * @param px the <i>x</i> coordinate to be compared
@@ -73,16 +73,14 @@ struct UmbraPoint {
    * @param p the point to be checked against
    * @param ms a reference to the mouse event object
    */
-  void mouse(UmbraPoint& p, TCOD_mouse_t& ms) noexcept {
+  void mouse(Point& p, TCOD_mouse_t& ms) noexcept {
     mouseHover = is(p);
     mouseDown = mouseHover & ms.lbutton;
   }
-  [[nodiscard]] friend constexpr bool operator==(const UmbraPoint& lhs, const UmbraPoint& rhs) noexcept {
+  [[nodiscard]] friend constexpr bool operator==(const Point& lhs, const Point& rhs) noexcept {
     return lhs.x == rhs.x && lhs.y == rhs.y;
   }
-  [[nodiscard]] friend constexpr bool operator!=(const UmbraPoint& lhs, const UmbraPoint& rhs) noexcept {
-    return !(lhs == rhs);
-  }
+  [[nodiscard]] friend constexpr bool operator!=(const Point& lhs, const Point& rhs) noexcept { return !(lhs == rhs); }
   int x = 0;
   int y = 0;
   bool mouseHover = false;

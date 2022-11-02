@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,9 +35,9 @@
 
 #include "widget/widget.hpp"
 namespace imod {
-class UmbraModBSOD : public widget::UmbraWidget {
+class ModBSOD : public widget::Widget {
  public:
-  UmbraModBSOD();
+  ModBSOD();
   /**
    * Updates the internal logic of the BSOD.
    * @return <code>true</code> if the module hasn't timed out and is supposed to continue active, <code>false</code> if

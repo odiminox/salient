@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,35 +41,29 @@ namespace logger {
 /**
  * Type of message placed in the log.
  */
-enum UmbraLogType {
-  UMBRA_LOGTYPE_INFO,
-  UMBRA_LOGTYPE_NOTICE,
-  UMBRA_LOGTYPE_WARNING,
-  UMBRA_LOGTYPE_ERROR,
-  UMBRA_LOGTYPE_FATAL
-};
+enum LogType { LOGTYPE_INFO, LOGTYPE_NOTICE, LOGTYPE_WARNING, LOGTYPE_ERROR, LOGTYPE_FATAL };
 
 /**
  * The results of closing a log block.
  */
-enum UmbraLogResult { UMBRA_LOGRESULT_FAILURE, UMBRA_LOGRESULT_SUCCESS, UMBRA_LOGRESULT_NONE };
+enum LogResult { LOGRESULT_FAILURE, LOGRESULT_SUCCESS, LOGRESULT_NONE };
 
 /**
  * The message log, used for debugging. It logs messages in a nested hierarchy, showing not only the place and time of
  * saving the message, but also the caller-callee dependency (if used in both the caller and callee methods).
  */
-class UmbraLog {
-  friend int engine::UmbraEngine::run();
+class Log {
+  friend int engine::Engine::run();
 
  private:
   /**
    * A single message in the log. Used internally by the log.
    */
-  struct UmbraLogMessage {
+  struct LogMessage {
     std::string msg;
     uint32_t time;
-    UmbraLogResult result;
-    UmbraLogType logType;
+    LogResult result;
+    LogType logType;
     int indent;
   };
   /**
@@ -83,7 +77,7 @@ class UmbraLog {
   /**
    * A list of log messages.
    */
-  static inline std::vector<UmbraLogMessage> messages{};
+  static inline std::vector<LogMessage> messages{};
   /**
    * Saves the logged messages to a log file.
    */
@@ -100,7 +94,7 @@ class UmbraLog {
    * @param str the message string
    * @return the index number of the message that has been added to the log
    */
-  static int output(UmbraLogType type, UmbraLogResult result, int indent, const char* str);
+  static int output(LogType type, LogResult result, int indent, const char* str);
   /**
    * Outputs a log message to the file stream.
    * @param type the type of log message (info, notice, warning, etc.)
@@ -109,7 +103,7 @@ class UmbraLog {
    * @param str the message string
    * @return the index number of the message that has been added to the log
    */
-  static int output(UmbraLogType type, UmbraLogResult result, int indent, std::string str);
+  static int output(LogType type, LogResult result, int indent, std::string str);
 
  public:
   /**
@@ -214,7 +208,7 @@ class UmbraLog {
    * logged message describing the reason for the block to end with a failure.
    * @return the index number of the message that has been added to the log
    */
-  static int closeBlock(UmbraLogResult result = UMBRA_LOGRESULT_NONE);
+  static int closeBlock(LogResult result = LOGRESULT_NONE);
   /**
    * Returns the number of messages that have been logged so far. This includes all messages, regardless of their log
    * level.
@@ -226,7 +220,7 @@ class UmbraLog {
    * @param type type of log message
    * @return the total number of messages of the specified type in the log
    */
-  static int size(UmbraLogType type);
+  static int size(LogType type);
   /**
    * Retrieves a message text from the message log.
    * @param idx the index of the message in the log. If left at default, the last logged message will be returned.

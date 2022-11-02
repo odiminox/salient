@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@
 #include <memory>
 #include <salient/salient.hpp>
 
-class Demo : public module::UmbraModule {
+class Demo : public module::Module {
  public:
   void onInitialise() override {
     img = std::make_unique<TCODImage>(getEngine()->getRootWidth(), getEngine()->getRootHeight());

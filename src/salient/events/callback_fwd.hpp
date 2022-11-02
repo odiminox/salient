@@ -1,4 +1,4 @@
 #pragma once
 namespace events {
-class UmbraCallback;
+class Callback;
 }

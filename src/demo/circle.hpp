@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@
 #include <libtcod/libtcod.hpp>
 #include <salient/salient.hpp>
 
-class Circle : public module::UmbraModule {
+class Circle : public module::Module {
  public:
   void onInitialise() override { circle.set(getEngine()->getRootWidth() / 2, getEngine()->getRootHeight() / 2, 7); }
   void onEvent(const SDL_Event& ev) override {
@@ -48,7 +48,7 @@ class Circle : public module::UmbraModule {
   void render() override;
 
  private:
-  base::UmbraCircle circle{};
+  base::Circle circle{};
   TCODImage red{"data/img/red.png"};
   TCODImage green{"data/img/green.png"};
   bool isGreen{false};

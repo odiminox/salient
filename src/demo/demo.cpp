@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,7 @@ void Demo::onEvent(const SDL_Event& ev) {
       case SDLK_RETURN:
       case SDLK_RETURN2:
       case SDLK_KP_ENTER:
-        logger::UmbraLog::error("This is a test error");
+        logger::Log::error("This is a test error");
         getEngine()->displayError();
         break;
       case SDLK_ESCAPE:

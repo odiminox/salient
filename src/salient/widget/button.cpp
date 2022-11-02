@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,28 +34,28 @@
 #include <libtcod/console.hpp>
 
 namespace widget {
-UmbraButton::UmbraButton(widget::UmbraWidget* parent, int x, int y, int w, int h, const char* tag) {
+Button::Button(widget::Widget* parent, int x, int y, int w, int h, const char* tag) {
   this->parent = parent;
   rect.set(x, y, w, h);
   this->tag = tag;
 }
 
-UmbraButton::UmbraButton(widget::UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
+Button::Button(widget::Widget* new_parent, int x, int y, int w, int h, std::string new_tag) {
   parent = new_parent;
   rect.set(x, y, w, h);
   tag = new_tag;
 }
 
-void UmbraButton::set(widget::UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+void Button::set(widget::Widget* new_parent, int x, int y, int w, int h, const char* new_tag) {
   parent = new_parent;
   rect.set(x, y, w, h);
   tag = new_tag;
 }
 
-void UmbraButton::render(TCODConsole* con) {
+void Button::render(TCODConsole* con) {
   if (!visible) return;
   TCODColor col = con->getDefaultForeground();
-  widget::UmbraStyleSheetSet* s;
+  widget::StyleSheetSet* s;
   if (rect.mouseHover) {
     if (rect.mouseDown)
       s = &style.active;

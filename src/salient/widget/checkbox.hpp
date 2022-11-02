@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,36 +37,36 @@
 #include "widget/widget.hpp"
 
 namespace widget {
-class UmbraCheckbox {
+class Checkbox {
  public:
-  UmbraCheckbox() = default;
-  virtual ~UmbraCheckbox() = default;
-  UmbraCheckbox(widget::UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
-  UmbraCheckbox(widget::UmbraWidget* parent, int x, int y, int w, int h, std::string tag = "");
+  Checkbox() = default;
+  virtual ~Checkbox() = default;
+  Checkbox(widget::Widget* parent, int x, int y, int w, int h, const char* tag = "");
+  Checkbox(widget::Widget* parent, int x, int y, int w, int h, std::string tag = "");
   /**
    * Sets the basic properties of the checkbox: parent widget, position in the console, size and tag.<br><i>Note: the
    * checkbox without a tag should have the width and height equal to 1. These values should be changed only if the
    * checkbox needs to display a tag as well as the checkbox itself.</i>
-   * @param parent a pointer to the widget::UmbraWidget containing the checkbox
+   * @param parent a pointer to the widget::Widget containing the checkbox
    * @param x the <code>x</code> coordinate of the top left corner of the checkbox area
    * @param y the <code>y</code> coordinate of the top left corner of the checkbox area
    * @param w the checkbox area's width
    * @param h the checkbox area's height
    * @param tag the tag's text
    */
-  void set(widget::UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
+  void set(widget::Widget* parent, int x, int y, int w, int h, const char* tag = "");
   /**
    * Sets the basic properties of the checkbox: parent widget, position in the console, size and tag.<br><i>Note: the
    * checkbox without a tag should have the width and height equal to 1. These values should be changed only if the
    * checkbox needs to display a tag as well as the checkbox itself.</i>
-   * @param new_parent a pointer to the widget::UmbraWidget containing the checkbox
+   * @param new_parent a pointer to the widget::Widget containing the checkbox
    * @param x the <code>x</code> coordinate of the top left corner of the checkbox area
    * @param y the <code>y</code> coordinate of the top left corner of the checkbox area
    * @param w the checkbox area's width
    * @param h the checkbox area's height
    * @param new_tag the tag's text
    */
-  inline void set(widget::UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag = "") {
+  inline void set(widget::Widget* new_parent, int x, int y, int w, int h, std::string new_tag = "") {
     set(new_parent, x, y, w, h, new_tag.c_str());
   }
   /**
@@ -81,8 +81,8 @@ class UmbraCheckbox {
    * Custom code launched when the mouse cursor is over the checkbox area, <i>including the tag</i>.
    */
   virtual void onMouseOver() {}  // custom code launched when mouse cursor is over the checkbox area
-  base::UmbraRect area{};  // the rectangle where the object is contained
-  widget::UmbraWidget* parent{nullptr};  // reference to the widget that contains the object
+  base::Rect area{};  // the rectangle where the object is contained
+  widget::Widget* parent{nullptr};  // reference to the widget that contains the object
   bool visible{true};  // visibility (can be toggled)
   bool checked{false};  // checked/unchecked status
   std::string tag{""};  // the descriptive tag

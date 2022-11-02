@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@
 
 #include "globals.hpp"
 
-class Panel : public widget::UmbraWidget {
+class Panel : public widget::Widget {
  public:
   Panel() {
     rect.set(posx, posy, width, height);
@@ -45,11 +45,11 @@ class Panel : public widget::UmbraWidget {
   bool update() override;
   void render() override;
   void onEvent(const SDL_Event& ev) override {
-    widget::UmbraWidget::onEvent(ev);
+    widget::Widget::onEvent(ev);
     bQuit.onEvent(ev);
     return;
   }
-  void onQuit(widget::UmbraWidget*, events::UmbraEvent) { salient_engine.deactivateAll(true); }
+  void onQuit(widget::Widget*, events::Event) { salient_engine.deactivateAll(true); }
 
  private:
   int width{24};
@@ -59,7 +59,7 @@ class Panel : public widget::UmbraWidget {
   uint32_t delay{3000};
   uint64_t lastHover{0};  // the time the mouse last hovered over the panel
   TCODConsole panel{width, height};
-  widget::UmbraButton bQuit{this, 2, 2, 20, 3, "Quit"};
+  widget::Button bQuit{this, 2, 2, 20, 3, "Quit"};
 };
 
 #endif

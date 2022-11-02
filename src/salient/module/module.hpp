@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,31 +41,31 @@
 #include "engine/engine_fwd.hpp"
 
 namespace module {
-enum UmbraModuleStatus { UMBRA_UNINITIALISED, UMBRA_INACTIVE, UMBRA_ACTIVE, UMBRA_PAUSED };
+enum ModuleStatus { UNINITIALISED, INACTIVE, ACTIVE, PAUSED };
 
 /**
  * A module. The engine will operate on this data type exclusively, thus all logical chunks of an application need to
  * inherit this.
  */
-class UmbraModule {
-  friend class UmbraEngine;
-  friend class UmbraModuleConfigParser;
+class Module {
+  friend class Engine;
+  friend class ModuleConfigParser;
 
  public:
   /**
-   * Basic constructor for the UmbraModule. It takes no parameters and sets all initial values to their defaults.
+   * Basic constructor for the Module. It takes no parameters and sets all initial values to their defaults.
    */
-  UmbraModule() = default;
+  Module() = default;
   /**
-   * A constructor. It sets all of the UmbraModule's internal values to their defaults, but takes the module's name from
+   * A constructor. It sets all of the Module's internal values to their defaults, but takes the module's name from
    * the parametre.
    * @param name the module's name, used for module identification.
    */
-  UmbraModule(const char* name) : name_{name} {};
+  Module(const char* name) : name_{name} {};
   /**
-   * Basic UmbraModule's destructor.
+   * Basic Module's destructor.
    */
-  virtual ~UmbraModule() = default;
+  virtual ~Module() = default;
   /**
    * Custom code controlling what and how is displayed on the console. Called automatically after <code>update()</code>.
    */
@@ -106,12 +106,12 @@ class UmbraModule {
    * Checks whether the module is paused or not.
    * @return <code>true</code> if the module is paused, <code>false</code> otherwise
    */
-  inline bool getPause() { return status_ == UMBRA_PAUSED; }
+  inline bool getPause() { return status_ == PAUSED; }
   /**
    * Checks whether the module has been activated.
    * @return <code>true</code> if the module has been activated, <code>false</code> otherwise
    */
-  inline bool getActive() { return status_ > UMBRA_INACTIVE; }
+  inline bool getActive() { return status_ > INACTIVE; }
   /**
    * Checks the module's priority.
    * @return the module's priority
@@ -119,9 +119,9 @@ class UmbraModule {
   inline int getPriority() { return priority_; }
   /**
    * Checks the module's status.
-   * @return module's status (one of the values from the UmbraModuleStatus enum)
+   * @return module's status (one of the values from the ModuleStatus enum)
    */
-  inline UmbraModuleStatus getStatus() { return status_; }
+  inline ModuleStatus getStatus() { return status_; }
   /**
    * Gets the name of the module
    * @return the name of the module
@@ -130,7 +130,7 @@ class UmbraModule {
   /**
    * Fetches the module's ID number. Used mainly for debugging purposes and should play no real role in a release
    * version of any program.
-   * @return the module's ID number, assigned by engine::config::UmbraEngine::registerModule().
+   * @return the module's ID number, assigned by engine::config::Engine::registerModule().
    */
   inline int getID() { return id_; }
   /**
@@ -235,17 +235,17 @@ class UmbraModule {
    * Provides a pointer to the engine object.
    * @return a pointer to the engine object
    */
-  engine::UmbraEngine* getEngine();
+  engine::Engine* getEngine();
 
   // protected:
-  struct UmbraModuleParameter {
+  struct ModuleParameter {
     std::string name;
     TCOD_value_t value;
   };
   /**
    * get a parametre (internal helper function)
    */
-  UmbraModuleParameter& getParameter(std::string_view name);
+  ModuleParameter& getParameter(std::string_view name);
   /**
    * Sets a parameter (only used by module.txt file parser)
    * @param name the parametre's name
@@ -261,8 +261,8 @@ class UmbraModule {
    * @param currentTime the program execution elapsed time, in milliseconds
    */
   inline bool isTimedOut(uint32_t currentTime) { return (timeout_end_ > currentTime) ? false : true; }
-  std::vector<UmbraModuleParameter> params_{};
-  UmbraModuleStatus status_{UMBRA_UNINITIALISED};
+  std::vector<ModuleParameter> params_{};
+  ModuleStatus status_{UNINITIALISED};
   int priority_{1};  // update order (inverse of render order)
   int fallback_{-1};  // fallback module's index
   int id_{-1};  // module's ID number

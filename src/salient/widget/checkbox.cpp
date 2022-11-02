@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@
 #include <libtcod/console.hpp>
 
 namespace widget {
-UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+Checkbox::Checkbox(widget::Widget* new_parent, int x, int y, int w, int h, const char* new_tag) {
   parent = new_parent;
   area.set(x, y, w, h);
   tag = new_tag;
@@ -42,7 +42,7 @@ UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int 
   visible = true;
 }
 
-UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
+Checkbox::Checkbox(widget::Widget* new_parent, int x, int y, int w, int h, std::string new_tag) {
   parent = new_parent;
   area.set(x, y, w, h);
   tag = new_tag;
@@ -50,7 +50,7 @@ UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int 
   visible = true;
 }
 
-void UmbraCheckbox::set(widget::UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+void Checkbox::set(widget::Widget* new_parent, int x, int y, int w, int h, const char* new_tag) {
   parent = new_parent;
   area.set(x, y, w, h);
   tag = new_tag;
@@ -58,7 +58,7 @@ void UmbraCheckbox::set(widget::UmbraWidget* new_parent, int x, int y, int w, in
   visible = true;
 }
 
-void UmbraCheckbox::mouse(TCOD_mouse_t& ms) {
+void Checkbox::mouse(TCOD_mouse_t& ms) {
   if (!visible) return;
   if (area.contains(ms.cx - parent->rect.x, ms.cy - parent->rect.y)) {
     area.mouseHover = true;
@@ -73,7 +73,7 @@ void UmbraCheckbox::mouse(TCOD_mouse_t& ms) {
     area.mouseDown = false;
 }
 
-void UmbraCheckbox::render(TCODConsole* con) {
+void Checkbox::render(TCODConsole* con) {
   if (!visible) return;
   TCODColor col = con->getDefaultForeground();
   con->setDefaultForeground(area.mouseHover ? TCODColor::white : TCODColor::lighterBlue);  // placeholder!

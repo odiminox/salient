@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,9 +35,9 @@
 
 namespace module {
 // a factory that creates a module from its name
-class UmbraModuleFactory {
+class ModuleFactory {
  public:
-  virtual module::UmbraModule* createModule(const char* name) = 0;
-  virtual ~UmbraModuleFactory() = default;
+  virtual module::Module* createModule(const char* name) = 0;
+  virtual ~ModuleFactory() = default;
 };
 }  // namespace module

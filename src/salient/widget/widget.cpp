@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
 #include "widget/stylesheet.hpp"
 
 namespace widget {
-void UmbraWidget::onEvent(const SDL_Event& ev) {
+void Widget::onEvent(const SDL_Event& ev) {
   TCOD_mouse_t tcod_mouse{};
   tcod::sdl2::process_event(ev, tcod_mouse);
   const int mouse_x = tcod_mouse.cx - (parent ? parent->rect.x : 0);
@@ -49,11 +49,11 @@ void UmbraWidget::onEvent(const SDL_Event& ev) {
       const bool wasHover = rect.mouseHover;
       rect.mouseHover = rect.contains(mouse_x, mouse_y);
       if (!wasHover && rect.mouseHover) {
-        onMouseEnter(this, events::UmbraMouseEvent(events::MOUSE_ENTER, tcod_mouse));
+        onMouseEnter(this, events::MouseEvent(events::MOUSE_ENTER, tcod_mouse));
       } else if (wasHover && !rect.mouseHover) {
-        onMouseLeave(this, events::UmbraMouseEvent(events::MOUSE_LEAVE, tcod_mouse));
+        onMouseLeave(this, events::MouseEvent(events::MOUSE_LEAVE, tcod_mouse));
       } else if (rect.mouseHover && !(tcod_mouse.dx == 0 && tcod_mouse.dy == 0)) {
-        onMouseMove(this, events::UmbraMouseEvent(events::MOUSE_MOVE, tcod_mouse));
+        onMouseMove(this, events::MouseEvent(events::MOUSE_MOVE, tcod_mouse));
       }
       minimiseButton.mouseHover = minimiseButton.is(local_x, local_y);
       closeButton.mouseHover = closeButton.is(local_x, local_y);
@@ -69,7 +69,7 @@ void UmbraWidget::onEvent(const SDL_Event& ev) {
         minimiseButton.mouseDown = minimiseButton.is(local_x, local_y);
         closeButton.mouseDown = closeButton.is(local_x, local_y);
         dragZone.mouseDown = dragZone.contains(local_x, local_y);
-        if (rect.mouseDown) onMouseClick(this, events::UmbraMouseEvent(events::MOUSE_CLICK, tcod_mouse));
+        if (rect.mouseDown) onMouseClick(this, events::MouseEvent(events::MOUSE_CLICK, tcod_mouse));
         if (canDrag && dragZone.contains(local_x, local_y)) isDragging = true;
       }
       break;
@@ -87,7 +87,7 @@ void UmbraWidget::onEvent(const SDL_Event& ev) {
   }
 }
 
-void UmbraWidget::setDragZone(int x, int y, int w, int h) {
+void Widget::setDragZone(int x, int y, int w, int h) {
   dragZone.set(x, y, w, h);
   if (w > 0 && h > 0) canDrag = true;
 }

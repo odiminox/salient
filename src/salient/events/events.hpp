@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,28 +36,28 @@
  */
 
 namespace events {
-enum UmbraEventType {
+enum EventType {
   NONE = 0,
-  MOUSE_ENTER,  // UmbraMouseEvent
-  MOUSE_LEAVE,  // UmbraMouseEvent
-  MOUSE_PRESS,  // UmbraMouseEvent
-  MOUSE_CLICK,  // UmbraMouseEvent
-  MOUSE_RELEASE,  // UmbraMouseEvent
-  MOUSE_MOVE,  // UmbraMouseEvent
+  MOUSE_ENTER,  // MouseEvent
+  MOUSE_LEAVE,  // MouseEvent
+  MOUSE_PRESS,  // MouseEvent
+  MOUSE_CLICK,  // MouseEvent
+  MOUSE_RELEASE,  // MouseEvent
+  MOUSE_MOVE,  // MouseEvent
 };
 
-class UmbraEvent {
+class Event {
  public:
-  UmbraEvent(UmbraEventType type) : type(type) {}
+  Event(EventType type) : type(type) {}
 
-  UmbraEventType type{};
+  EventType type{};
   /** whether this event is caught by the current listener (true) or propagated to the next listener (false) */
   bool accepted{false};
 };
 
-class UmbraMouseEvent : public UmbraEvent {
+class MouseEvent : public Event {
  public:
-  UmbraMouseEvent(UmbraEventType type, TCOD_mouse_t& mouse) : UmbraEvent(type), mouse(mouse) {}
+  MouseEvent(EventType type, TCOD_mouse_t& mouse) : Event(type), mouse(mouse) {}
 
   TCOD_mouse_t mouse{};
 };

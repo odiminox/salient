@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,13 +36,13 @@
 #include "salient.hpp"
 
 namespace widget {
-UmbraStyleSheetSet::UmbraStyleSheetSet() {
+StyleSheetSet::StyleSheetSet() {
   colour.set(TCODColor::white);
   backgroundColour.set(TCODColor::darkerRed);
   borderColour.set(TCODColor::blue);
 }
 
-UmbraStyleSheet::UmbraStyleSheet() {
+StyleSheet::StyleSheet() {
   // placeholder --- hardcoded values
   active.colour(TCODColor::yellow);
   hover.backgroundColour(TCODColor::darkRed);
@@ -51,17 +51,17 @@ UmbraStyleSheet::UmbraStyleSheet() {
   active.borderColour(TCODColor::lighterBlue);
 }
 
-UmbraStyleSheet& UmbraStyleSheet::colour(TCODColor val) {
+StyleSheet& StyleSheet::colour(TCODColor val) {
   normal.colour = hover.colour = active.colour = val;
   return *this;
 }
 
-UmbraStyleSheet& UmbraStyleSheet::backgroundColour(TCODColor val) {
+StyleSheet& StyleSheet::backgroundColour(TCODColor val) {
   normal.backgroundColour = hover.backgroundColour = active.backgroundColour = val;
   return *this;
 }
 
-UmbraStyleSheet& UmbraStyleSheet::borderColour(TCODColor val) {
+StyleSheet& StyleSheet::borderColour(TCODColor val) {
   normal.borderColour = hover.borderColour = active.borderColour = val;
   return *this;
 }

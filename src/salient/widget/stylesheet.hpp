@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,49 +29,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef UMBRA_STYLESHEET_HPP
-#define UMBRA_STYLESHEET_HPP
+#ifndef SALIENT_STYLESHEET_HPP
+#define SALIENT_STYLESHEET_HPP
 #include <libtcod/libtcod.hpp>
 
 namespace widget {
 /**
  * Specificity levels. Used to determine whether an encountered value can override the one that has been already set.
  */
-enum UmbraStyleSheetSpecificity {
+enum StyleSheetSpecificity {
   /**
    * Default specificity. Used for default values. Can be overridden by anything.
    */
-  UMBRA_SPECIFICITY_DEFAULT,
+  SPECIFICITY_DEFAULT,
   /**
    * Tag level. This specificity is used when setting a property value for all widgets of a given type, e.g. for all
    * pushbuttons.
    */
-  UMBRA_SPECIFICITY_TAG,
+  SPECIFICITY_TAG,
   /**
    * Class level. Overrides tag level. Used for setting a common property value for an arbitrary class of widgets (for
    * instance, main menu buttons can belong to a class so that their styling is different from all other pushbuttons).
    */
-  UMBRA_SPECIFICITY_CLASS,
+  SPECIFICITY_CLASS,
   /**
    * ID level. Used for styling individual widgets. Targets only the widget with a specifin name and overrides both tag
    * and class specificity levels.
    */
-  UMBRA_SPECIFICITY_ID,
+  SPECIFICITY_ID,
   /**
    * Used when setting a property's value manually within the code (for instance, for dynamic changes). The external
    * style sheet cannot use this specificity. It overrides everything.
    */
-  UMBRA_SPECIFICITY_MANUAL
+  SPECIFICITY_MANUAL
 };
 
-class UmbraStyleSheetSet;  // forward declaration
+class StyleSheetSet;  // forward declaration
 
 /**
  * A template of a stylesheet property, including the property's value and the level at which it has been set.
  */
 template <class T>
-class UmbraStyleSheetProperty {
-  friend class UmbraStyleSheetSet;
+class StyleSheetProperty {
+  friend class StyleSheetSet;
 
  private:
   /**
@@ -81,7 +81,7 @@ class UmbraStyleSheetProperty {
   /**
    * The level at which the property has been set (tag, class, ID or manual). Used to determine the precedence.
    */
-  UmbraStyleSheetSpecificity specificity;
+  StyleSheetSpecificity specificity;
 
  public:
   /**
@@ -94,9 +94,9 @@ class UmbraStyleSheetProperty {
    * @param x the value to be assigned to the property
    * @return the property object reference
    */
-  inline UmbraStyleSheetProperty& operator=(const T& x) {
+  inline StyleSheetProperty& operator=(const T& x) {
     val = x;
-    specificity = UMBRA_SPECIFICITY_MANUAL;
+    specificity = SPECIFICITY_MANUAL;
     return *this;
   }
   /**
@@ -104,9 +104,9 @@ class UmbraStyleSheetProperty {
    * @param x the value to be assigned to the property
    * @return the property object reference
    */
-  inline UmbraStyleSheetProperty& operator()(const T& x) {
+  inline StyleSheetProperty& operator()(const T& x) {
     val = x;
-    specificity = UMBRA_SPECIFICITY_MANUAL;
+    specificity = SPECIFICITY_MANUAL;
     return *this;
   }
   /**
@@ -122,8 +122,8 @@ class UmbraStyleSheetProperty {
    * @param l the property's specificity
    * @return the property object reference
    */
-  inline UmbraStyleSheetProperty& set(const T& x, UmbraStyleSheetSpecificity s = UMBRA_SPECIFICITY_DEFAULT) {
-    if (s >= specificity || s == UMBRA_SPECIFICITY_DEFAULT) {
+  inline StyleSheetProperty& set(const T& x, StyleSheetSpecificity s = SPECIFICITY_DEFAULT) {
+    if (s >= specificity || s == SPECIFICITY_DEFAULT) {
       val = x;
       specificity = s;
     }
@@ -132,32 +132,32 @@ class UmbraStyleSheetProperty {
 };
 
 /**
- * The class that holds the information about a styles set. Used internally by the <code>UmbraStyleSheet</code> class.
+ * The class that holds the information about a styles set. Used internally by the <code>StyleSheet</code> class.
  */
-class UmbraStyleSheetSet {
+class StyleSheetSet {
  public:
   /**
    * The style sheet set constructor. Assigns default values to all properties.
    */
-  UmbraStyleSheetSet();
+  StyleSheetSet();
   /**
    * Text foreground colour.
    */
-  UmbraStyleSheetProperty<TCODColor> colour;
+  StyleSheetProperty<TCODColor> colour;
   /**
    * Widget's background colour.
    */
-  UmbraStyleSheetProperty<TCODColor> backgroundColour;
+  StyleSheetProperty<TCODColor> backgroundColour;
   /**
    * Widget's border colour.
    */
-  UmbraStyleSheetProperty<TCODColor> borderColour;
+  StyleSheetProperty<TCODColor> borderColour;
 };
 
 /**
  * The style sheet class. It stores the information about a widget's appearance.
  */
-class UmbraStyleSheet {
+class StyleSheet {
  private:
   static TCODParser parser;
 
@@ -165,15 +165,15 @@ class UmbraStyleSheet {
   /**
    * Default style sheet for the widget.
    */
-  UmbraStyleSheetSet normal;
+  StyleSheetSet normal;
   /**
    * Style sheet that overrides the default appearance when the mouse cursor is hovering over the widget.
    */
-  UmbraStyleSheetSet hover;
+  StyleSheetSet hover;
   /**
    * Style sheet that overrides the default appearance when the mouse cursor is pressed while hovering over the widget.
    */
-  UmbraStyleSheetSet active;
+  StyleSheetSet active;
 
  public:  // setters
   /**
@@ -181,25 +181,25 @@ class UmbraStyleSheet {
    * @param val the property's value
    * @return reference to the style sheet the method is called on. It can be used for chaining.
    */
-  UmbraStyleSheet& colour(TCODColor val);
+  StyleSheet& colour(TCODColor val);
   /**
    * Sets the style sheet's <code>backgroundColour</code> property.
    * @param val the property's value
    * @return reference to the style sheet the method is called on. It can be used for chaining.
    */
-  UmbraStyleSheet& backgroundColour(TCODColor val);
+  StyleSheet& backgroundColour(TCODColor val);
   /**
    * Sets the style sheet's <code>borderColour</code> property.
    * @param val the property's value
    * @return reference to the style sheet the method is called on. It can be used for chaining.
    */
-  UmbraStyleSheet& borderColour(TCODColor val);
+  StyleSheet& borderColour(TCODColor val);
 
  public:  // ctor
   /**
    * The constructor for the style sheet class. Fills all styles with default values.
    */
-  UmbraStyleSheet();
+  StyleSheet();
 };
 }  // namespace widget
-#endif /* UMBRA_STYLESHEET_HPP */
+#endif /* SALIENT_STYLESHEET_HPP */

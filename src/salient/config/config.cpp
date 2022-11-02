@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,17 +41,17 @@
 namespace config {
 static constexpr std::array logLevelName = {"info", "notice", "warning", "error", "fatal error", "none"};
 
-void UmbraConfig::load(std::filesystem::path path) {
+void Config::load(std::filesystem::path path) {
   static bool loaded = false;
   TCODParser parser;
-  logger::UmbraLog::openBlock("UmbraConfig::load | Loading configuration variables.");
-  if (loaded && UmbraConfig::fileName == path) {
-    logger::UmbraLog::notice("UmbraConfig::load | Configuraion variables have been loaded previously. Aborting.");
-    logger::UmbraLog::closeBlock(logger::UMBRA_LOGRESULT_FAILURE);
+  logger::Log::openBlock("Config::load | Loading configuration variables.");
+  if (loaded && Config::fileName == path) {
+    logger::Log::notice("Config::load | Configuraion variables have been loaded previously. Aborting.");
+    logger::Log::closeBlock(logger::LOGRESULT_FAILURE);
     return;
   }
 
-  UmbraConfig::fileName = path;
+  Config::fileName = path;
 
   // register configuration variables
   parser.newStructure("config")
@@ -67,16 +67,16 @@ void UmbraConfig::load(std::filesystem::path path) {
 
   // check if the config file exists
   if (!std::filesystem::exists(path)) {
-    logger::UmbraLog::notice(
+    logger::Log::notice(
         "Configuration file %s is bad or missing. Attempting to create a new one.", path.string().c_str());
     // assign defaults
     rootWidth = 80;
     rootHeight = 60;
     fontID = 0;
     fullScreen = false;
-    logLevel = UMBRA_LOGLEVEL_ERROR;
+    logLevel = LOGLEVEL_ERROR;
     fontDir = "data/img";
-    UmbraConfig::save();
+    Config::save();
   }
 
   // run the parser
@@ -95,19 +95,19 @@ void UmbraConfig::load(std::filesystem::path path) {
   {
     std::string configLogLevel = "info";
     if (parser.hasProperty("config.logLevel")) configLogLevel = parser.getStringProperty("config.logLevel");
-    for (int i = 0; i <= static_cast<int>(UMBRA_LOGLEVEL_NONE); ++i) {
-      if (configLogLevel == logLevelName.at(i)) logLevel = static_cast<UmbraLogLevel>(i);
+    for (int i = 0; i <= static_cast<int>(LOGLEVEL_NONE); ++i) {
+      if (configLogLevel == logLevelName.at(i)) logLevel = static_cast<LogLevel>(i);
     }
   }
   loaded = true;
-  logger::UmbraLog::closeBlock(logger::UMBRA_LOGRESULT_SUCCESS);
+  logger::Log::closeBlock(logger::LOGRESULT_SUCCESS);
 }
 
-void UmbraConfig::save() {
+void Config::save() {
   FILE* out;
   std::string modC = "";
 
-  logger::UmbraLog::info("UmbraConfig::save | Saving configuration variables.");
+  logger::Log::info("Config::save | Saving configuration variables.");
 
   out = fopen(fileName.string().c_str(), "w");
 
@@ -162,12 +162,12 @@ void UmbraConfig::save() {
   fclose(out);
 }
 
-void UmbraConfig::registerFont(const base::UmbraFont& new_font) {
-  logger::UmbraLog::info("UmbraConfig::registerFont | Registered a font.");
+void Config::registerFont(const base::Font& new_font) {
+  logger::Log::info("Config::registerFont | Registered a font.");
   fonts.emplace_back(new_font);
 }
 
-bool UmbraConfig::activateFont(int shift) {
+bool Config::activateFont(int shift) {
   int s = CLAMP(-1, 1, shift);
   // check if there are any registered fonts
   if (fonts.size() == 0)

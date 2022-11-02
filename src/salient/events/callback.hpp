@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,20 +34,20 @@
 #include "engine/engine.hpp"
 
 namespace events {
-class UmbraCallback {
-  friend class engine::UmbraEngine;
+class Callback {
+  friend class engine::Engine;
 
  public:
-  virtual ~UmbraCallback() = default;
+  virtual ~Callback() = default;
 
  protected:
-  base::UmbraKey key{};
+  base::Key key{};
   /**
    * Checks whether the collected keyboard event corresponds to the one the callback is listening to.
    * @param k the keyboard event collected by the engine
    * @return <code>true</code> if the keyboard events match, <code>false</code> otherwise
    */
-  virtual inline bool evaluate(base::UmbraKey k) {
+  virtual inline bool evaluate(base::Key k) {
     if (k == key)
       return true;
     else
@@ -62,24 +62,24 @@ class UmbraCallback {
    * Fetches a pointer to the engine.
    * @return a pointer to the engine
    */
-  inline engine::UmbraEngine* getEngine() { return engine::UmbraEngine::getInstance(); }
+  inline engine::Engine* getEngine() { return engine::Engine::getInstance(); }
 };
 
 // Internal callbacks:
 
 // quit game
-class UmbraCallbackQuit : public UmbraCallback {
+class CallbackQuit : public Callback {
  public:
-  UmbraCallbackQuit();
+  CallbackQuit();
 
  private:
-  base::UmbraKey key2;
+  base::Key key2;
   /**
    * Checks whether the collected keyboard event corresponds to one of the Quit key combinations.
    * @param k the keyboard event collected by the engine
    * @return <code>true</code> if the keyboard events match, <code>false</code> otherwise
    */
-  inline bool evaluate(base::UmbraKey k) {
+  inline bool evaluate(base::Key k) {
     if (k == key || k == key2)
       return true;
     else
@@ -92,9 +92,9 @@ class UmbraCallbackQuit : public UmbraCallback {
 };
 
 // switch fullscreen
-class UmbraCallbackFullscreen : public UmbraCallback {
+class CallbackFullscreen : public Callback {
  public:
-  UmbraCallbackFullscreen();
+  CallbackFullscreen();
 
  private:
   /**
@@ -104,9 +104,9 @@ class UmbraCallbackFullscreen : public UmbraCallback {
 };
 
 // save screenshot
-class UmbraCallbackScreenshot : public UmbraCallback {
+class CallbackScreenshot : public Callback {
  public:
-  UmbraCallbackScreenshot();
+  CallbackScreenshot();
 
  private:
   /**
@@ -116,9 +116,9 @@ class UmbraCallbackScreenshot : public UmbraCallback {
 };
 
 // font up
-class UmbraCallbackFontUp : public UmbraCallback {
+class CallbackFontUp : public Callback {
  public:
-  UmbraCallbackFontUp();
+  CallbackFontUp();
 
  private:
   /**
@@ -128,9 +128,9 @@ class UmbraCallbackFontUp : public UmbraCallback {
 };
 
 // switch font down
-class UmbraCallbackFontDown : public UmbraCallback {
+class CallbackFontDown : public Callback {
  public:
-  UmbraCallbackFontDown();
+  CallbackFontDown();
 
  private:
   /**
@@ -140,9 +140,9 @@ class UmbraCallbackFontDown : public UmbraCallback {
 };
 
 // pause the program
-class UmbraCallbackPause : public UmbraCallback {
+class CallbackPause : public Callback {
  public:
-  UmbraCallbackPause();
+  CallbackPause();
 
  private:
   /**
@@ -152,9 +152,9 @@ class UmbraCallbackPause : public UmbraCallback {
 };
 
 // pause the program
-class UmbraCallbackSpeedometer : public UmbraCallback {
+class CallbackSpeedometer : public Callback {
  public:
-  UmbraCallbackSpeedometer();
+  CallbackSpeedometer();
 
  private:
   /**

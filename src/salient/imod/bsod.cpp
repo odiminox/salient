@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +39,7 @@
 #include "logger/log.hpp"
 
 namespace imod {
-UmbraModBSOD::UmbraModBSOD() {
+ModBSOD::ModBSOD() {
   bsod = new TCODConsole(30, 8);
   closeButton.set(28, 0);
   rect.set(getEngine()->getRootWidth() - 31, getEngine()->getRootHeight() - 9, 30, 8);
@@ -47,12 +47,12 @@ UmbraModBSOD::UmbraModBSOD() {
   setName("umbraBSOD");
 }
 
-void UmbraModBSOD::activate() {
+void ModBSOD::activate() {
   startTime = SDL_GetTicks();
-  msgString = logger::UmbraLog::get();
+  msgString = logger::Log::get();
 }
 
-bool UmbraModBSOD::update() {
+bool ModBSOD::update() {
   if (closeButton.mouseDown) setActive(false);
   if (SDL_GetTicks() - startTime >= duration)
     return false;
@@ -60,12 +60,12 @@ bool UmbraModBSOD::update() {
     return true;
 }
 
-void UmbraModBSOD::render() {
+void ModBSOD::render() {
   bsod->setDefaultBackground(TCODColor::blue);
   bsod->clear();
   bsod->setDefaultForeground(TCODColor::white);
   bsod->printFrame(0, 0, 30, 8, true, TCOD_BKGND_NONE, "Umbra BSOD");
-  bsod->printRectEx(15, 2, 28, 5, TCOD_BKGND_NONE, TCOD_CENTER, logger::UmbraLog::get().c_str());
+  bsod->printRectEx(15, 2, 28, 5, TCOD_BKGND_NONE, TCOD_CENTER, logger::Log::get().c_str());
   if (closeButton.mouseHover) bsod->setDefaultForeground(TCODColor::red);
   bsod->putChar(closeButton.x, closeButton.y, 'X', TCOD_BKGND_NONE);
   if (dragZone.mouseHover || isDragging) {

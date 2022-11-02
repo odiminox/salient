@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,12 @@
 #pragma once
 #include <libtcod/console_types.h>
 namespace base {
-class UmbraKey {
-  friend class UmbraCallback;
+class Key {
+  friend class Callback;
 
  public:
-  UmbraKey() = default;
-  UmbraKey(TCOD_keycode_t vk, char c, bool alt, bool ctrl, bool shift)
+  Key() = default;
+  Key(TCOD_keycode_t vk, char c, bool alt, bool ctrl, bool shift)
       : vk_{vk}, c_{c}, alt_{alt}, ctrl_{ctrl}, shift_{shift} {}
   /**
    * Assigns a keystroke or key combination. In case of alt, ctrl and shift keys, left and right keys are not
@@ -51,12 +51,12 @@ class UmbraKey {
    */
   [[deprecated("Use normal assignment instead of this method.")]] void assign(
       TCOD_keycode_t vk, char c, bool alt, bool ctrl, bool shift) {
-    (*this) = UmbraKey{vk, c, alt, ctrl, shift};
+    (*this) = Key{vk, c, alt, ctrl, shift};
   }
-  [[nodiscard]] bool operator==(const UmbraKey& rhs) {
+  [[nodiscard]] bool operator==(const Key& rhs) {
     return vk_ == rhs.vk_ && c_ == rhs.c_ && alt_ == rhs.alt_ && ctrl_ == rhs.ctrl_ && shift_ == rhs.shift_;
   }
-  [[nodiscard]] bool operator!=(const UmbraKey& rhs) { return !((*this) == rhs); }
+  [[nodiscard]] bool operator!=(const Key& rhs) { return !((*this) == rhs); }
 
  private:
   TCOD_keycode_t vk_{TCODK_NONE};

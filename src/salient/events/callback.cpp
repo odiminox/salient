@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,47 +38,47 @@
 
 namespace events {
 // quit program
-UmbraCallbackQuit::UmbraCallbackQuit() { key = {TCODK_F4, 0, true, false, false}; }
+CallbackQuit::CallbackQuit() { key = {TCODK_F4, 0, true, false, false}; }
 
-void UmbraCallbackQuit::action() { getEngine()->deactivateAll(); }
+void CallbackQuit::action() { getEngine()->deactivateAll(); }
 
 // switch fullscreen
-UmbraCallbackFullscreen::UmbraCallbackFullscreen() { key = {TCODK_ENTER, '\r', true, false, false}; }
+CallbackFullscreen::CallbackFullscreen() { key = {TCODK_ENTER, '\r', true, false, false}; }
 
-void UmbraCallbackFullscreen::action() { TCODConsole::setFullscreen(!TCODConsole::isFullscreen()); }
+void CallbackFullscreen::action() { TCODConsole::setFullscreen(!TCODConsole::isFullscreen()); }
 
 // save screenshot
-UmbraCallbackScreenshot::UmbraCallbackScreenshot() { key = {TCODK_PRINTSCREEN, 0, false, false, false}; }
+CallbackScreenshot::CallbackScreenshot() { key = {TCODK_PRINTSCREEN, 0, false, false, false}; }
 
-void UmbraCallbackScreenshot::action() { TCODSystem::saveScreenshot(NULL); }
+void CallbackScreenshot::action() { TCODSystem::saveScreenshot(NULL); }
 
 // switch font up
-UmbraCallbackFontUp::UmbraCallbackFontUp() { key = {TCODK_PAGEUP, 0, false, false, false}; }
+CallbackFontUp::CallbackFontUp() { key = {TCODK_PAGEUP, 0, false, false, false}; }
 
-void UmbraCallbackFontUp::action() {
+void CallbackFontUp::action() {
   if (getEngine()->activateFont(1)) getEngine()->reinitialise();
 }
 
 // switch font down
-UmbraCallbackFontDown::UmbraCallbackFontDown() { key = {TCODK_PAGEDOWN, 0, false, false, false}; }
+CallbackFontDown::CallbackFontDown() { key = {TCODK_PAGEDOWN, 0, false, false, false}; }
 
-void UmbraCallbackFontDown::action() {
+void CallbackFontDown::action() {
   if (getEngine()->activateFont(-1)) getEngine()->reinitialise();
 }
 
 // pause the program
-UmbraCallbackPause::UmbraCallbackPause() { key = {TCODK_PAUSE, 0, false, false, false}; }
+CallbackPause::CallbackPause() { key = {TCODK_PAUSE, 0, false, false, false}; }
 
-void UmbraCallbackPause::action() { getEngine()->setPause(!getEngine()->getPause()); }
+void CallbackPause::action() { getEngine()->setPause(!getEngine()->getPause()); }
 
 // pause the program
-UmbraCallbackSpeedometer::UmbraCallbackSpeedometer() { key = {TCODK_F5, 0, false, false, false}; }
+CallbackSpeedometer::CallbackSpeedometer() { key = {TCODK_F5, 0, false, false, false}; }
 
-void UmbraCallbackSpeedometer::action() {
-  if (getEngine()->getModule(engine::UMBRA_INTERNAL_SPEEDOMETER)->getActive()) {
-    getEngine()->deactivateModule(engine::UMBRA_INTERNAL_SPEEDOMETER);
+void CallbackSpeedometer::action() {
+  if (getEngine()->getModule(engine::INTERNAL_SPEEDOMETER)->getActive()) {
+    getEngine()->deactivateModule(engine::INTERNAL_SPEEDOMETER);
   } else {
-    getEngine()->activateModule(engine::UMBRA_INTERNAL_SPEEDOMETER);
+    getEngine()->activateModule(engine::INTERNAL_SPEEDOMETER);
   }
 }
 }  // namespace events

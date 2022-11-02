@@ -35,7 +35,7 @@ namespace imod {
 #define MAXIMISED_MODE_HEIGHT 8
 #define TIMEBAR_LENGTH (MAXIMISED_MODE_WIDTH - 4) * 2
 
-UmbraModSpeed::UmbraModSpeed() {
+ModSpeed::ModSpeed() {
   speed = new TCODConsole(MAXIMISED_MODE_WIDTH, MAXIMISED_MODE_HEIGHT);
   rect.set((getEngine()->getRootWidth() / 2) - 15, (getEngine()->getRootHeight() / 2) - 3, 30, MAXIMISED_MODE_HEIGHT);
   // the title bar is drag-sensible
@@ -48,8 +48,8 @@ UmbraModSpeed::UmbraModSpeed() {
   setName("umbraSpeedometer");
 }
 
-void UmbraModSpeed::onEvent(const SDL_Event& ev) {
-  widget::UmbraWidget::onEvent(ev);
+void ModSpeed::onEvent(const SDL_Event& ev) {
+  widget::Widget::onEvent(ev);
   TCOD_mouse_t tcod_mouse{};
   tcod::sdl2::process_event(ev, tcod_mouse);
   const int mouse_x = tcod_mouse.cx - rect.x;
@@ -87,7 +87,7 @@ void UmbraModSpeed::onEvent(const SDL_Event& ev) {
   }
 }
 
-bool UmbraModSpeed::update() {
+bool ModSpeed::update() {
   cumulatedElapsed += TCODSystem::getLastFrameLength();
 
   if (cumulatedElapsed >= 1.0f) {
@@ -108,18 +108,18 @@ bool UmbraModSpeed::update() {
       timeBar->putPixel(px, 1, col);
     }
   }
-  if (getStatus() == module::UMBRA_ACTIVE)
+  if (getStatus() == module::ACTIVE)
     return true;
   else
     return false;
 }
 
-void UmbraModSpeed::setTimes(long new_update_time, long new_render_time) {
+void ModSpeed::setTimes(long new_update_time, long new_render_time) {
   updateTime += new_update_time * 0.001f;
   renderTime += new_render_time * 0.001f;
 }
 
-void UmbraModSpeed::render() {
+void ModSpeed::render() {
   speed->setDefaultBackground(TCODColor::black);
   speed->setDefaultForeground(TCODColor::white);
   if (isMinimized) {
@@ -185,10 +185,10 @@ void UmbraModSpeed::render() {
   if (!isMinimized) timeBar->blit2x(TCODConsole::root, rect.x + 2, rect.y + 4);
 }
 
-void UmbraModSpeed::onActivate() {
+void ModSpeed::onActivate() {
   fps = TCODSystem::getFps();
   TCODSystem::setFps(0);
 }
 
-void UmbraModSpeed::onDeactivate() { TCODSystem::setFps(fps); }
+void ModSpeed::onDeactivate() { TCODSystem::setFps(fps); }
 }  // namespace imod

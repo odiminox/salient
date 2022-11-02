@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,12 +38,12 @@
 #include "widget/stylesheet.hpp"
 
 namespace widget {
-class UmbraWidget : public module::UmbraModule {
-  friend class UmbraCheckbox;
-  friend class UmbraStyleSheetSet;
+class Widget : public module::Module {
+  friend class Checkbox;
+  friend class StyleSheetSet;
 
  public:
-  UmbraWidget() = default;
+  Widget() = default;
   /**
    * Custom, widget-specific code interpreting the mouse input.
    * @param ms reference to the mouse object
@@ -54,40 +54,40 @@ class UmbraWidget : public module::UmbraModule {
   /**
    * Signal launched when the mouse cursor enters the widget.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMouseEnter{};
+  Signal2<Widget*, events::Event> onMouseEnter{};
   /**
    * Signal launched when the mouse cursor leaves the widget.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMouseLeave{};
+  Signal2<Widget*, events::Event> onMouseLeave{};
   /**
    * Signal lauched when the mouse cursor moves inside the widget.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMouseMove{};
+  Signal2<Widget*, events::Event> onMouseMove{};
   /**
    * Signal launched when the mouse button is pressed when hovering over the widget. Corresponds to JavaScript's
    * <code>onmousedown</code> event.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMousePress{};
+  Signal2<Widget*, events::Event> onMousePress{};
   /**
    * Signal launched when the mouse button is released when hovering over the widget. Corresponds to JavaScript's
    * <code>onmouseup</code> event.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMouseRelease{};
+  Signal2<Widget*, events::Event> onMouseRelease{};
   /**
    * Signal launched when the mouse button is clicked when hovering over the widget. Corresponds to JavaScript's
    * <code>onclick</code> event. <strong>TODO:</strong> With the current implementation, this signal behaves identically
    * to <code>onMouseRelease</code>.
    */
-  Signal2<UmbraWidget*, events::UmbraEvent> onMouseClick{};
+  Signal2<Widget*, events::Event> onMouseClick{};
 
   /**
    * Part of the screen where the widget is
    */
-  base::UmbraRect rect{};
+  base::Rect rect{};
   /**
    * The style sheet containing information about the widget's appearance
    */
-  widget::UmbraStyleSheet style{};
+  widget::StyleSheet style{};
 
  protected:
   /**
@@ -106,19 +106,19 @@ class UmbraWidget : public module::UmbraModule {
   /**
    * Pointer to the containing (parent) widget
    */
-  UmbraWidget* parent{nullptr};  // reference to the widget that contains the object
+  Widget* parent{nullptr};  // reference to the widget that contains the object
   /**
    * The drag zone: the are within the widget that can be clicked in order to drag it
    */
-  base::UmbraRect dragZone{};  // part of the widget we can click to drag it
+  base::Rect dragZone{};  // part of the widget we can click to drag it
   /**
    * Coordinates of the minimise button
    */
-  base::UmbraPoint minimiseButton{};  // minimise button coordinates
+  base::Point minimiseButton{};  // minimise button coordinates
   /**
    * Coordinates of the close button
    */
-  base::UmbraPoint closeButton{};  // close button coordinates
+  base::Point closeButton{};  // close button coordinates
   bool canDrag{false};
   bool isDragging{false};
 };

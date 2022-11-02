@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,11 +33,11 @@
 #include "widget/widget.hpp"
 
 namespace imod {
-class UmbraModSpeed : public widget::UmbraWidget {
-  friend class engine::UmbraEngine;
+class ModSpeed : public widget::Widget {
+  friend class engine::Engine;
 
  public:
-  UmbraModSpeed();
+  ModSpeed();
   /**
    * Gathers data about time useage.
    * @return <code>true</code> if Speedo is to continue active, <code>false</code> it it should be deactivated

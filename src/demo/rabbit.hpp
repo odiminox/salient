@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,24 +34,24 @@
 #include <libtcod/libtcod.hpp>
 #include <salient/salient.hpp>
 
-class RabbitButton : public widget::UmbraStyleSheetSet {};
+class RabbitButton : public widget::StyleSheetSet {};
 
-class RabbitWidget : public widget::UmbraWidget {
+class RabbitWidget : public widget::Widget {
  public:
   RabbitWidget();
   void onEvent(const SDL_Event& ev) override {
-    widget::UmbraWidget::onEvent(ev);
+    widget::Widget::onEvent(ev);
     button.onEvent(ev);
   }
   void render() override;
   // slots
-  void onNextDemo(widget::UmbraWidget* w, events::UmbraEvent ev);
+  void onNextDemo(widget::Widget* w, events::Event ev);
 
  protected:
   void onInitialise() override;
 
  private:
-  widget::UmbraButton button{};
+  widget::Button button{};
   TCODConsole rabbit{24, 12};
 };
 

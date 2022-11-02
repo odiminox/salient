@@ -1,6 +1,6 @@
 /* BSD 3-Clause License
  *
- * Copyright © 2008-2022, Jice and the salient contributors.
+ * Copyright © 2008-2022, Jice, Odiminox and the salient contributors.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ struct MatrixLead {
   int y_duration_ms{};  // how long it takes to increment y
 };
 
-class Matrix : public module::UmbraModule {
+class Matrix : public module::Module {
  public:
   bool update() override;
   void render() override;
