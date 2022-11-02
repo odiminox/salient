@@ -41,7 +41,7 @@
 #include "panel.hpp"
 #include "rabbit.hpp"
 
-UmbraEngine engine("data/cfg/umbra.txt", UMBRA_REGISTER_ALL);
+UmbraEngine engine("data/cfg/salient.txt", UMBRA_REGISTER_ALL);
 
 class ModuleFactory : public UmbraModuleFactory {
  public:
@@ -65,7 +65,7 @@ class ModuleFactory : public UmbraModuleFactory {
 
 int main(int argc, char* argv[]) {
   // set window title
-  engine.setWindowTitle("Umbra demo");
+  engine.setWindowTitle("Salient demo");
   engine.setKeyboardMode(UMBRA_KEYBOARD_SDL);
   // initialise and run the engine
   if (engine.loadModuleConfiguration("data/cfg/module.txt", new ModuleFactory()) && engine.initialise())

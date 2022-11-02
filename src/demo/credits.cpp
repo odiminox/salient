@@ -32,13 +32,13 @@
 #include "credits.hpp"
 
 constexpr auto CREDITS_TEXT =
-    "Umbra demo\n"
-    "Copyright (c) 2009, 2010, 2022 Mingos, Jice, Odiminox\n"
+    "Salient demo\n"
+    "Copyright (c) 2009-2022, Jice and the Salient contributors\n"
     "\n"
     "Powered by:\n"
     "libtcod " TCOD_STRVERSION
     "\n"
-    "Copyright (c) 2008, 2009, 2022 Jice, HexDecimal\n"
+    "Copyright (c) 2008-2022, Jice and the Salient contributors\n"
     "\n"
     "Simple DirectMedia Layer 1.2.12\n"
     "Copyright (c) Sam Lantinga";
