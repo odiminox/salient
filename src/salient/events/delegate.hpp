@@ -295,7 +295,7 @@ class GenericClass;
 #endif
 
 // The size of a single inheritance member function pointer.
-const int SINGLE_MEMFUNCPTR_SIZE = sizeof(void(GenericClass::*)());
+const int SINGLE_MEMFUNCPTR_SIZE = sizeof(void (GenericClass::*)());
 
 //						SimplifyMemFunc< >::Convert()
 //
