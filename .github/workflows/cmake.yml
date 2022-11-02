@@ -68,7 +68,7 @@ jobs:
           cmake -S "${{ github.workspace }}" -B "${{ env.CMAKE_BUILD_DIR }}" -GNinja \
               -DVCPKG_TARGET_TRIPLET="${{ matrix.triplet }}" \
               -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}" \
-              -DBUILD_UMBRA_DEMO=ON
+              -DBUILD_SALIENT_DEMO=ON
       # Build the whole project with Ninja (which is spawn by CMake).
       - name: Build
         run: |
