@@ -101,6 +101,7 @@
         "thread": "cpp",
         "fstream": "cpp",
         "variant": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "util": "cpp"
     }
 }
