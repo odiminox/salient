@@ -1,6 +1,6 @@
 /*
  * Umbra
- * Copyright (c) 2009, 2010 Mingos, Jice
+ * Copyright (c) 2009, 2010, 2022, Mingos, Jice, HexDecimal, Odiminox
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,12 +28,12 @@
 
 constexpr auto CREDITS_TEXT =
     "Umbra demo\n"
-    "Copyright (c) 2009, 2010 Mingos, Jice\n"
+    "Copyright (c) 2009, 2010, 2022 Mingos, Jice, Odiminox\n"
     "\n"
     "Powered by:\n"
     "libtcod " TCOD_STRVERSION
     "\n"
-    "Copyright (c) 2008, 2009 Jice\n"
+    "Copyright (c) 2008, 2009, 2022 Jice, HexDecimal\n"
     "\n"
     "Simple DirectMedia Layer 1.2.12\n"
     "Copyright (c) Sam Lantinga";
