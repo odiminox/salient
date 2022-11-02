@@ -34,6 +34,8 @@
 /**
  * Events triggered by the widget system
  */
+
+namespace events {
 enum UmbraEventType {
   NONE = 0,
   MOUSE_ENTER,  // UmbraMouseEvent
@@ -59,3 +61,4 @@ class UmbraMouseEvent : public UmbraEvent {
 
   TCOD_mouse_t mouse{};
 };
+}  // namespace events

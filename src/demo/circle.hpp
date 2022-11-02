@@ -34,7 +34,7 @@
 #include <libtcod/libtcod.hpp>
 #include <salient/salient.hpp>
 
-class Circle : public UmbraModule {
+class Circle : public module::UmbraModule {
  public:
   void onInitialise() override { circle.set(getEngine()->getRootWidth() / 2, getEngine()->getRootHeight() / 2, 7); }
   void onEvent(const SDL_Event& ev) override {
@@ -48,7 +48,7 @@ class Circle : public UmbraModule {
   void render() override;
 
  private:
-  UmbraCircle circle{};
+  base::UmbraCircle circle{};
   TCODImage red{"data/img/red.png"};
   TCODImage green{"data/img/green.png"};
   bool isGreen{false};

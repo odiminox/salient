@@ -33,21 +33,21 @@
 #include "base/key.hpp"
 #include "engine/engine.hpp"
 
-
+namespace events {
 class UmbraCallback {
-  friend class UmbraEngine;
+  friend class engine::UmbraEngine;
 
  public:
   virtual ~UmbraCallback() = default;
 
  protected:
-  UmbraKey key{};
+  base::UmbraKey key{};
   /**
    * Checks whether the collected keyboard event corresponds to the one the callback is listening to.
    * @param k the keyboard event collected by the engine
    * @return <code>true</code> if the keyboard events match, <code>false</code> otherwise
    */
-  virtual inline bool evaluate(UmbraKey k) {
+  virtual inline bool evaluate(base::UmbraKey k) {
     if (k == key)
       return true;
     else
@@ -62,7 +62,7 @@ class UmbraCallback {
    * Fetches a pointer to the engine.
    * @return a pointer to the engine
    */
-  inline UmbraEngine* getEngine() { return UmbraEngine::getInstance(); }
+  inline engine::UmbraEngine* getEngine() { return engine::UmbraEngine::getInstance(); }
 };
 
 // Internal callbacks:
@@ -73,13 +73,13 @@ class UmbraCallbackQuit : public UmbraCallback {
   UmbraCallbackQuit();
 
  private:
-  UmbraKey key2;
+  base::UmbraKey key2;
   /**
    * Checks whether the collected keyboard event corresponds to one of the Quit key combinations.
    * @param k the keyboard event collected by the engine
    * @return <code>true</code> if the keyboard events match, <code>false</code> otherwise
    */
-  inline bool evaluate(UmbraKey k) {
+  inline bool evaluate(base::UmbraKey k) {
     if (k == key || k == key2)
       return true;
     else
@@ -162,3 +162,4 @@ class UmbraCallbackSpeedometer : public UmbraCallback {
    */
   void action();
 };
+}  // namespace events

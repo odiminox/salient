@@ -43,10 +43,10 @@
 #include "base/key.hpp"
 #include "config/config.hpp"
 #include "events/callback_fwd.hpp"
+#include "module/factory.hpp"
 #include "module/module.hpp"
-#include "module/module_factory.hpp"
 
-
+namespace engine {
 /**
  * The keyboard modes available in Umbra. They correspond to the ones used in libtcod.
  */
@@ -125,7 +125,8 @@ class UmbraEngine {
    * @param name the module's name
    * @return the module's unique ID number (0 for the first registered module, 1 for the second, etc.)
    */
-  int registerModule(UmbraModule* module, const char* name = NULL);  // add a module to the modules list. returns id
+  int registerModule(
+      module::UmbraModule* module, const char* name = NULL);  // add a module to the modules list. returns id
   /**
    * Registers a font for usage in the application.<br><i>Note: you are encouraged to let the engine register fonts
    * automatically. Please refer to the documentation regarding font autodetection.</i>
@@ -146,7 +147,7 @@ class UmbraEngine {
    * configuration file.
    * @return <code>true</code> if module configuration has been loaded successfully, <code>false</code> otherwise
    */
-  bool loadModuleConfiguration(const char* filename, UmbraModuleFactory* factory, const char* chainName = NULL);
+  bool loadModuleConfiguration(const char* filename, module::UmbraModuleFactory* factory, const char* chainName = NULL);
   /**
    * Read module configuration from the given filename, or the filename defined as moduleConfig in umbra.txt.<br>If
    * there's no filename or the file cannot be read, return false.
@@ -204,7 +205,7 @@ class UmbraEngine {
    * @param cbk a pointer to the keyboard callback. You're encouraged to create the callback using the <code>new</code>
    * keyword here: <code>registerCallback(new MyCallback());</code>
    */
-  inline void registerCallback(UmbraCallback* cbk) { callbacks.push_back(cbk); }
+  inline void registerCallback(events::UmbraCallback* cbk) { callbacks.push_back(cbk); }
   /**
    * Activates a module.
    * @param moduleId the identification number of the module to be activated
@@ -214,7 +215,7 @@ class UmbraEngine {
    * Activates a module.
    * @param mod a pointer to the module object to be activated
    */
-  void activateModule(UmbraModule* mod);
+  void activateModule(module::UmbraModule* mod);
   /**
    * Activates an internal module.
    * @param id the identification number of the internal module to be activated
@@ -234,7 +235,7 @@ class UmbraEngine {
    * Deactivates a module.
    * @param mod a pointer to the module object to be deactivated
    */
-  void deactivateModule(UmbraModule* mod);
+  void deactivateModule(module::UmbraModule* mod);
   /**
    * Deactivates an internal module.
    * @param id the identification number of the internal module to be deactivated
@@ -257,7 +258,7 @@ class UmbraEngine {
    * log.
    * @return the log level, as defined in the configuration file
    */
-  inline UmbraLogLevel getLogLevel() { return UmbraConfig::logLevel; }
+  inline config::UmbraLogLevel getLogLevel() { return config::UmbraConfig::logLevel; }
   /**
    * Retrieves the paused state of the engine.
    * @return <code>true</code> if the engine is currently paused, <code>false</code> otherwise
@@ -273,7 +274,7 @@ class UmbraEngine {
    * @param moduleId the identification number of the module to which a pointer is to be fetched
    * @return a pointer to the requested module
    */
-  inline UmbraModule* getModule(int moduleId) {
+  inline module::UmbraModule* getModule(int moduleId) {
     return (moduleId < 0 || moduleId >= modules.size() ? NULL : modules.at(moduleId));
   }
   /**
@@ -281,7 +282,7 @@ class UmbraEngine {
    * @param moduleName the name of the module to which a pointer is to be fetched
    * @return a pointer to the requested module
    */
-  UmbraModule* getModule(const char* name);
+  module::UmbraModule* getModule(const char* name);
   /**
    * Retrieve the module id from its name
    * @param mod pointer to the module
@@ -293,13 +294,13 @@ class UmbraEngine {
    * @param mod pointer to the module
    * @return the module's id
    */
-  int getModuleId(UmbraModule* mod);
+  int getModuleId(module::UmbraModule* mod);
   /**
    * Fetches a pointer to an internal module.
    * @param id the identification number of the internal module to which a pointer is to be fetched
    * @return a pointer to the requested internal module
    */
-  inline UmbraModule* getModule(UmbraInternalModuleID id) {
+  inline module::UmbraModule* getModule(UmbraInternalModuleID id) {
     return (id < 0 || id >= UMBRA_INTERNAL_MAX ? NULL : internalModules[id]);
   }
   /**
@@ -321,40 +322,40 @@ class UmbraEngine {
    * value of 0 results in doing nothing.
    * @return <code>true</code> if the font has been successfully changed, <code>false</code> otherwise
    */
-  inline bool activateFont(int shift = 0) { return UmbraConfig::activateFont(shift); }
+  inline bool activateFont(int shift = 0) { return config::UmbraConfig::activateFont(shift); }
   /**
    * Retrieves the width of the console in cells.
    * @return the console's width
    */
-  inline int getRootWidth() { return UmbraConfig::rootWidth; }
+  inline int getRootWidth() { return config::UmbraConfig::rootWidth; }
   /**
    * Retrieves the height of the console in cells.
    * @return the console's height
    */
-  inline int getRootHeight() { return UmbraConfig::rootHeight; }
+  inline int getRootHeight() { return config::UmbraConfig::rootHeight; }
   /**
    * Retrieves the ID number of the currently used font.
    * @return current font's ID
    */
-  inline int getFontID() { return UmbraConfig::fontID; }
+  inline int getFontID() { return config::UmbraConfig::fontID; }
   /**
    * Retrieves the total number of registered fonts.
    * @return number of registered fonts
    */
-  int getNbFonts() { return static_cast<int>(UmbraConfig::fonts.size()); }
+  int getNbFonts() { return static_cast<int>(config::UmbraConfig::fonts.size()); }
   /**
    * Retrieves the font directory.
    * @return the font direcory
    */
-  std::filesystem::path getFontDir() { return UmbraConfig::fontDir; }
+  std::filesystem::path getFontDir() { return config::UmbraConfig::fontDir; }
   /**
    * Sets the root console's dimensions in cells.
    * @param w the root console's width
    * @param h the root console's height
    */
   static void setRootDimensions(int w, int h) {
-    UmbraConfig::rootWidth = w;
-    UmbraConfig::rootHeight = h;
+    config::UmbraConfig::rootWidth = w;
+    config::UmbraConfig::rootHeight = h;
     getInstance()->reinitialise(renderer);
   }
   /**
@@ -376,13 +377,13 @@ class UmbraEngine {
   std::string windowTitle{""};
   bool paused{false};
   std::vector<UmbraCustomCharMap> customChars{};  // List of custom chars to add
-  std::vector<UmbraModule*> modules{};  // list of all registered modules
-  std::vector<UmbraModule*> activeModules{};  // currently active modules
-  std::vector<UmbraModule*> toActivate{};  // modules to activate next frame
-  std::vector<UmbraModule*> toDeactivate{};  // modules to deactivate next frame
-  UmbraModule* internalModules[UMBRA_INTERNAL_MAX]{};
+  std::vector<module::UmbraModule*> modules{};  // list of all registered modules
+  std::vector<module::UmbraModule*> activeModules{};  // currently active modules
+  std::vector<module::UmbraModule*> toActivate{};  // modules to activate next frame
+  std::vector<module::UmbraModule*> toDeactivate{};  // modules to deactivate next frame
+  module::UmbraModule* internalModules[UMBRA_INTERNAL_MAX]{};
   UmbraKeyboardMode keyboardMode{UMBRA_KEYBOARD_RELEASED};
-  std::vector<UmbraCallback*> callbacks{};  // the keybinding callbacks
+  std::vector<events::UmbraCallback*> callbacks{};  // the keybinding callbacks
   /**
    * Parses the keyboard input and passes it to the registered callbacks.
    * @param key a reference to the keyboard event object
@@ -392,7 +393,7 @@ class UmbraEngine {
    * Puts the newly activated module in the active modules list.
    * @param mod a pointer to the module that's being activated
    */
-  void doActivateModule(UmbraModule* mod);
+  void doActivateModule(module::UmbraModule* mod);
   /**
    * Performs font autodetection and registered any found fonts.
    * @return <code>true</code> if at least one font has been registered, <code>false</code> otherwise
@@ -403,9 +404,9 @@ class UmbraEngine {
    * @param id the ID number of an internal module
    * @param module a pointer to the internal module to be registered.
    */
-  void registerInternalModule(UmbraInternalModuleID id, UmbraModule* module);
+  void registerInternalModule(UmbraInternalModuleID id, module::UmbraModule* module);
   /// @brief SDL event watcher.
   static int onSDLEvent(void* userdata, SDL_Event* event);
 };
-
+}  // namespace engine
 #endif

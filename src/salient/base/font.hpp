@@ -35,6 +35,7 @@
 #include <cassert>
 #include <string>
 
+namespace base {
 class UmbraFont {
  public:
   UmbraFont() = default;
@@ -80,3 +81,4 @@ class UmbraFont {
   int rows_ = 0;
   int flags_ = 0;
 };
+}  // namespace base

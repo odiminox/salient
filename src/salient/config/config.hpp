@@ -37,6 +37,7 @@
 
 #include "base/font.hpp"
 
+namespace config {
 enum UmbraLogLevel {
   UMBRA_LOGLEVEL_INFO,
   UMBRA_LOGLEVEL_NOTICE,
@@ -50,17 +51,19 @@ class UmbraConfig {
   friend class UmbraEngine;
   friend class UmbraLog;
 
- private:
+ public:
   static inline int rootWidth{};
   static inline int rootHeight{};
   static inline bool fullScreen{};
   static inline UmbraLogLevel logLevel{UMBRA_LOGLEVEL_INFO};
-  static inline const UmbraFont* font{};
+  static inline const base::UmbraFont* font{};
   static inline std::filesystem::path fileName{};
   static inline std::filesystem::path fontDir{};
   static inline const char* moduleChain{};
   static inline int fontID{};
-  static inline std::vector<UmbraFont> fonts{};
+  static inline std::vector<base::UmbraFont> fonts{};
+
+  // private:
   /**
    * Activates a different font. This method is called by the engine.
    * @param shift a number indicating whether to activate the next or the previous font in the registered fonts
@@ -83,8 +86,8 @@ class UmbraConfig {
    * Adds a font to the registered fonts list
    * @param new_font the font object to be added to the list
    */
-  static void registerFont(const UmbraFont& new_font);
-  [[deprecated]] static void registerFont(UmbraFont* new_font) { registerFont(*new_font); }
+  static void registerFont(const base::UmbraFont& new_font);
+  [[deprecated]] static void registerFont(base::UmbraFont* new_font) { registerFont(*new_font); }
 };
-
+}  // namespace config
 #endif

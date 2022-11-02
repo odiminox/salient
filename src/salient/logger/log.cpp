@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "log/log.hpp"
+#include "logger/log.hpp"
 
 #include <SDL_timer.h>
 #include <fmt/printf.h>
@@ -33,8 +33,10 @@
 
 #include <libtcod/libtcod.hpp>
 
+#include "config/config.hpp"
 #include "version.hpp"
 
+namespace logger {
 constexpr std::array logTypeString{"INF.", "NOT.", "WAR.", "ERR.", "FAT."};
 
 constexpr std::array logTypeStringFull{"INFO", "NOTICE", "WARNING", "ERROR", "FATAL ERROR"};
@@ -67,7 +69,7 @@ void UmbraLog::save() {
 }
 
 int UmbraLog::output(UmbraLogType type, UmbraLogResult res, int ind, std::string str) {
-  if (UmbraConfig::logLevel > (UmbraLogLevel)type) return 0;
+  if (config::UmbraConfig::logLevel > (config::UmbraLogLevel)type) return 0;
   if (out == NULL) {
     initialise();
     if (res >= UMBRA_LOGRESULT_FAILURE && indent == 0) {
@@ -148,3 +150,4 @@ std::string UmbraLog::get(int idx) {
     msg = &messages.at(idx);
   return fmt::format("{}: {}", logTypeStringFull.at(msg->logType), msg->msg);
 }
+}  // namespace logger

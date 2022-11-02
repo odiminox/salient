@@ -36,17 +36,18 @@
 #include <array>
 #include <libtcod/libtcod.hpp>
 
-#include "log/log.hpp"
+#include "logger/log.hpp"
 
+namespace config {
 static constexpr std::array logLevelName = {"info", "notice", "warning", "error", "fatal error", "none"};
 
 void UmbraConfig::load(std::filesystem::path path) {
   static bool loaded = false;
   TCODParser parser;
-  UmbraLog::openBlock("UmbraConfig::load | Loading configuration variables.");
+  logger::UmbraLog::openBlock("UmbraConfig::load | Loading configuration variables.");
   if (loaded && UmbraConfig::fileName == path) {
-    UmbraLog::notice("UmbraConfig::load | Configuraion variables have been loaded previously. Aborting.");
-    UmbraLog::closeBlock(UMBRA_LOGRESULT_FAILURE);
+    logger::UmbraLog::notice("UmbraConfig::load | Configuraion variables have been loaded previously. Aborting.");
+    logger::UmbraLog::closeBlock(logger::UMBRA_LOGRESULT_FAILURE);
     return;
   }
 
@@ -66,7 +67,8 @@ void UmbraConfig::load(std::filesystem::path path) {
 
   // check if the config file exists
   if (!std::filesystem::exists(path)) {
-    UmbraLog::notice("Configuration file %s is bad or missing. Attempting to create a new one.", path.string().c_str());
+    logger::UmbraLog::notice(
+        "Configuration file %s is bad or missing. Attempting to create a new one.", path.string().c_str());
     // assign defaults
     rootWidth = 80;
     rootHeight = 60;
@@ -98,14 +100,14 @@ void UmbraConfig::load(std::filesystem::path path) {
     }
   }
   loaded = true;
-  UmbraLog::closeBlock(UMBRA_LOGRESULT_SUCCESS);
+  logger::UmbraLog::closeBlock(logger::UMBRA_LOGRESULT_SUCCESS);
 }
 
 void UmbraConfig::save() {
   FILE* out;
   std::string modC = "";
 
-  UmbraLog::info("UmbraConfig::save | Saving configuration variables.");
+  logger::UmbraLog::info("UmbraConfig::save | Saving configuration variables.");
 
   out = fopen(fileName.string().c_str(), "w");
 
@@ -160,8 +162,8 @@ void UmbraConfig::save() {
   fclose(out);
 }
 
-void UmbraConfig::registerFont(const UmbraFont& new_font) {
-  UmbraLog::info("UmbraConfig::registerFont | Registered a font.");
+void UmbraConfig::registerFont(const base::UmbraFont& new_font) {
+  logger::UmbraLog::info("UmbraConfig::registerFont | Registered a font.");
   fonts.emplace_back(new_font);
 }
 
@@ -179,3 +181,4 @@ bool UmbraConfig::activateFont(int shift) {
   fontID += s;
   return true;
 }
+}  // namespace config

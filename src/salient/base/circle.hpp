@@ -32,14 +32,15 @@
 #pragma once
 #include "base/point.hpp"
 
+namespace base {
 class UmbraCircle {
  public:
   UmbraCircle() = default;
   UmbraCircle(int r) : r{r} {}
   UmbraCircle(int x, int y) : x{x}, y{y} {}
   UmbraCircle(int x, int y, int r) : x{x}, y{y}, r{r} {}
-  UmbraCircle(const UmbraPoint& p) : x{p.x}, y{p.y} {}
-  UmbraCircle(const UmbraPoint& p, int r) : x{p.x}, y{p.y}, r{r} {}
+  UmbraCircle(const base::UmbraPoint& p) : x{p.x}, y{p.y} {}
+  UmbraCircle(const base::UmbraPoint& p, int r) : x{p.x}, y{p.y}, r{r} {}
   /**
    * Sets the circle's position.
    * @param x the circle centre's <i>x</i> coordinate
@@ -53,7 +54,7 @@ class UmbraCircle {
    * Sets the circle's position.
    * @param p the point whose coordinates are to be come the circle's centre
    */
-  inline void setPos(const UmbraPoint& p) {
+  inline void setPos(const base::UmbraPoint& p) {
     x = p.x;
     y = p.y;
   }
@@ -77,7 +78,7 @@ class UmbraCircle {
    * @param p the point whose coordinates are to be come the circle's centre
    * @param r the circle's radius
    */
-  inline void set(const UmbraPoint& p, int new_r) {
+  inline void set(const base::UmbraPoint& p, int new_r) {
     setPos(p);
     setRadius(new_r);
   }
@@ -93,7 +94,9 @@ class UmbraCircle {
    * @param p the point to be checked
    * @return <code>true</code> if the point is within the circle, <code>false</code> otherwise
    */
-  inline bool contains(const UmbraPoint& p) { return (((x - p.x) * (x - p.x)) + ((y - p.y) * (y - p.y))) <= (r * r); }
+  inline bool contains(const base::UmbraPoint& p) {
+    return (((x - p.x) * (x - p.x)) + ((y - p.y) * (y - p.y))) <= (r * r);
+  }
   /**
    * Sets the <code>mouseHover</code> and <code>mouseDown</code> statuses for the circle.
    * @param px the <i>x</i> coordinate to be checked
@@ -109,7 +112,7 @@ class UmbraCircle {
    * @param p the point to be checked
    * @param ms a reference to the mouse event object
    */
-  inline void mouse(const UmbraPoint& p, TCOD_mouse_t& m) {
+  inline void mouse(const base::UmbraPoint& p, TCOD_mouse_t& m) {
     mouseHover = contains(p);
     mouseDown = mouseHover & m.lbutton;
   }
@@ -119,3 +122,4 @@ class UmbraCircle {
   bool mouseHover{false};
   bool mouseDown{false};
 };
+}  // namespace base

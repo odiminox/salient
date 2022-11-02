@@ -42,7 +42,7 @@ struct MatrixLead {
   int y_duration_ms{};  // how long it takes to increment y
 };
 
-class Matrix : public UmbraModule {
+class Matrix : public module::UmbraModule {
  public:
   bool update() override;
   void render() override;

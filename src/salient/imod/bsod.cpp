@@ -29,57 +29,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "widget/widget_checkbox.hpp"
+#include "imod/bsod.hpp"
 
-#include <libtcod/console.hpp>
+#include <SDL_timer.h>
 
-UmbraCheckbox::UmbraCheckbox(UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
-  parent = new_parent;
-  area.set(x, y, w, h);
-  tag = new_tag;
-  checked = false;
-  visible = true;
+#include <libtcod/libtcod.hpp>
+
+#include "engine/engine.hpp"
+#include "logger/log.hpp"
+
+namespace imod {
+UmbraModBSOD::UmbraModBSOD() {
+  bsod = new TCODConsole(30, 8);
+  closeButton.set(28, 0);
+  rect.set(getEngine()->getRootWidth() - 31, getEngine()->getRootHeight() - 9, 30, 8);
+  setDragZone(0, 0, 28, 1);
+  setName("umbraBSOD");
 }
 
-UmbraCheckbox::UmbraCheckbox(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
-  parent = new_parent;
-  area.set(x, y, w, h);
-  tag = new_tag;
-  checked = false;
-  visible = true;
+void UmbraModBSOD::activate() {
+  startTime = SDL_GetTicks();
+  msgString = logger::UmbraLog::get();
 }
 
-void UmbraCheckbox::set(UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
-  parent = new_parent;
-  area.set(x, y, w, h);
-  tag = new_tag;
-  checked = false;
-  visible = true;
-}
-
-void UmbraCheckbox::mouse(TCOD_mouse_t& ms) {
-  if (!visible) return;
-  if (area.contains(ms.cx - parent->rect.x, ms.cy - parent->rect.y)) {
-    area.mouseHover = true;
-    onMouseOver();
-  } else
-    area.mouseHover = false;
-  if (area.mouseHover && ms.lbutton_pressed) {
-    area.mouseDown = true;
-    checked = !checked;
-    ms.lbutton_pressed = false;
-  } else
-    area.mouseDown = false;
-}
-
-void UmbraCheckbox::render(TCODConsole* con) {
-  if (!visible) return;
-  TCODColor col = con->getDefaultForeground();
-  con->setDefaultForeground(area.mouseHover ? TCODColor::white : TCODColor::lighterBlue);  // placeholder!
-  if (checked)
-    con->putChar(area.x, area.y, TCOD_CHAR_CHECKBOX_SET, TCOD_BKGND_NONE);
+bool UmbraModBSOD::update() {
+  if (closeButton.mouseDown) setActive(false);
+  if (SDL_GetTicks() - startTime >= duration)
+    return false;
   else
-    con->putChar(area.x, area.y, TCOD_CHAR_CHECKBOX_UNSET, TCOD_BKGND_NONE);
-  if (!tag.empty()) con->printRectEx(area.x + 2, area.y, area.w - 2, area.h, TCOD_BKGND_NONE, TCOD_LEFT, tag.c_str());
-  con->setDefaultForeground(col);
+    return true;
 }
+
+void UmbraModBSOD::render() {
+  bsod->setDefaultBackground(TCODColor::blue);
+  bsod->clear();
+  bsod->setDefaultForeground(TCODColor::white);
+  bsod->printFrame(0, 0, 30, 8, true, TCOD_BKGND_NONE, "Umbra BSOD");
+  bsod->printRectEx(15, 2, 28, 5, TCOD_BKGND_NONE, TCOD_CENTER, logger::UmbraLog::get().c_str());
+  if (closeButton.mouseHover) bsod->setDefaultForeground(TCODColor::red);
+  bsod->putChar(closeButton.x, closeButton.y, 'X', TCOD_BKGND_NONE);
+  if (dragZone.mouseHover || isDragging) {
+    bsod->setDefaultBackground(TCODColor::lightRed);
+    bsod->rect(9, 0, 12, 1, false, TCOD_BKGND_SET);
+  }
+  TCODConsole::blit(bsod, 0, 0, rect.w, rect.h, TCODConsole::root, rect.x, rect.y, 1.0f, 0.5f);
+}
+}  // namespace imod

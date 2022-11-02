@@ -36,32 +36,33 @@
 #include "base/rect.hpp"
 #include "widget/widget.hpp"
 
-class UmbraButton : public UmbraWidget {
+namespace widget {
+class UmbraButton : public widget::UmbraWidget {
  public:
   UmbraButton() = default;
-  UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
-  UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, std::string tag = "");
+  UmbraButton(widget::UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
+  UmbraButton(widget::UmbraWidget* parent, int x, int y, int w, int h, std::string tag = "");
   virtual ~UmbraButton() = default;
   /**
    * Sets the basic properties of the button: parent widget, position in the console, size and tag.
-   * @param parent a pointer to the UmbraWidget containing the button
+   * @param parent a pointer to the widget::UmbraWidget containing the button
    * @param x the <code>x</code> coordinate of the top left corner of the button area
    * @param y the <code>y</code> coordinate of the top left corner of the button area
    * @param w the button area's width
    * @param h the button area's height
    * @param tag the tag's text
    */
-  void set(UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
+  void set(widget::UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
   /**
    * Sets the basic properties of the button: parent widget, position in the console, size and tag.
-   * @param new_parent a pointer to the UmbraWidget containing the button
+   * @param new_parent a pointer to the widget::UmbraWidget containing the button
    * @param x the <code>x</code> coordinate of the top left corner of the button area
    * @param y the <code>y</code> coordinate of the top left corner of the button area
    * @param w the button area's width
    * @param h the button area's height
    * @param new_tag the tag's text
    */
-  inline void set(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag = "") {
+  inline void set(widget::UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag = "") {
     set(new_parent, x, y, w, h, new_tag.c_str());
   }
   /**
@@ -71,3 +72,4 @@ class UmbraButton : public UmbraWidget {
   bool visible{true};  // visibility (can be toggled)
   std::string tag{""};  // the descriptive tag
 };
+}  // namespace widget

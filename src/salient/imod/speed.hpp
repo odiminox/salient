@@ -29,47 +29,58 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "imod/imod_bsod.hpp"
+#pragma once
+#include "widget/widget.hpp"
 
-#include <SDL_timer.h>
+namespace imod {
+class UmbraModSpeed : public widget::UmbraWidget {
+  friend class engine::UmbraEngine;
 
-#include <libtcod/libtcod.hpp>
+ public:
+  UmbraModSpeed();
+  /**
+   * Gathers data about time useage.
+   * @return <code>true</code> if Speedo is to continue active, <code>false</code> it it should be deactivated
+   */
+  bool update() override;
+  /**
+   * Displays the Speedo widget.
+   */
+  void render() override;
+  /**
+   * Parses mouse input.
+   */
+  void mouse(TCOD_mouse_t&) override{};
+  void onEvent(const SDL_Event&) override;
+  /**
+   * Sets the minimised state of the widget.
+   * @param val <code>true</code> for minimised, <code>false</code> for maximised
+   */
+  inline void setMinimised(bool val) { isMinimized = val; }
 
-#include "engine/engine.hpp"
-#include "log/log.hpp"
+ private:
+  float cumulatedElapsed{0.0f};
+  float updateTime{0.0f};
+  float renderTime{0.0f};
+  int updatePer{0}, renderPer{0}, sysPer{0};
+  TCODImage* timeBar{};
+  TCODConsole* speed{};
+  int fps{};
+  bool isMinimized{false};
 
-UmbraModBSOD::UmbraModBSOD() {
-  bsod = new TCODConsole(30, 8);
-  closeButton.set(28, 0);
-  rect.set(getEngine()->getRootWidth() - 31, getEngine()->getRootHeight() - 9, 30, 8);
-  setDragZone(0, 0, 28, 1);
-  setName("umbraBSOD");
-}
-
-void UmbraModBSOD::activate() {
-  startTime = SDL_GetTicks();
-  msgString = UmbraLog::get();
-}
-
-bool UmbraModBSOD::update() {
-  if (closeButton.mouseDown) setActive(false);
-  if (SDL_GetTicks() - startTime >= duration)
-    return false;
-  else
-    return true;
-}
-
-void UmbraModBSOD::render() {
-  bsod->setDefaultBackground(TCODColor::blue);
-  bsod->clear();
-  bsod->setDefaultForeground(TCODColor::white);
-  bsod->printFrame(0, 0, 30, 8, true, TCOD_BKGND_NONE, "Umbra BSOD");
-  bsod->printRectEx(15, 2, 28, 5, TCOD_BKGND_NONE, TCOD_CENTER, UmbraLog::get().c_str());
-  if (closeButton.mouseHover) bsod->setDefaultForeground(TCODColor::red);
-  bsod->putChar(closeButton.x, closeButton.y, 'X', TCOD_BKGND_NONE);
-  if (dragZone.mouseHover || isDragging) {
-    bsod->setDefaultBackground(TCODColor::lightRed);
-    bsod->rect(9, 0, 12, 1, false, TCOD_BKGND_SET);
-  }
-  TCODConsole::blit(bsod, 0, 0, rect.w, rect.h, TCODConsole::root, rect.x, rect.y, 1.0f, 0.5f);
-}
+  /**
+   * Removes the frames per second limit in order to attempt to enforce a 100% load on the CPU.
+   */
+  void onActivate();
+  /**
+   * Restores the frames per second limit from before Speedo activation.
+   */
+  void onDeactivate();
+  /**
+   * Uptades the update and render times.
+   * @param updateTime the time spend on <code>update()</code> methods
+   * @param renderTime the time spend on <code>render()</code> methods
+   */
+  void setTimes(long updateTime, long renderTime);  // this is called by engine each frame
+};
+}  // namespace imod

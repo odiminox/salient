@@ -37,8 +37,9 @@
 #include <libtcod/sys.hpp>
 
 #include "engine/engine.hpp"
-#include "log/log.hpp"
+#include "logger/log.hpp"
 
+namespace module {
 void UmbraModule::setActive(bool active) {
   if (status_ == UMBRA_UNINITIALISED) {
     onInitialise();
@@ -79,7 +80,7 @@ void UmbraModule::setFallback(const char* module_name) {
   if (mod) {
     setFallback(mod->getID());
   } else {
-    UmbraLog::error("UmbraModule::setFallback | Unknown module \"%s\".", module_name);
+    logger::UmbraLog::error("UmbraModule::setFallback | Unknown module \"%s\".", module_name);
   }
 }
 
@@ -103,4 +104,5 @@ UmbraModule::UmbraModuleParameter& UmbraModule::getParameter(std::string_view pa
   return def;
 }
 
-auto UmbraModule::getEngine() -> UmbraEngine* { return UmbraEngine::getInstance(); }
+auto UmbraModule::getEngine() -> engine::UmbraEngine* { return engine::UmbraEngine::getInstance(); }
+}  // namespace module

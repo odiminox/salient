@@ -34,12 +34,15 @@
 
 #include "base/point.hpp"
 
+namespace base {
+
 struct UmbraRect {
   constexpr UmbraRect() noexcept = default;
   constexpr UmbraRect(int new_x, int new_y) noexcept : x{new_x}, y{new_y} {}
-  explicit constexpr UmbraRect(const UmbraPoint& p) noexcept : x{p.x}, y{p.y} {}
+  explicit constexpr UmbraRect(const base::UmbraPoint& p) noexcept : x{p.x}, y{p.y} {}
   constexpr UmbraRect(int new_x, int new_y, int width, int height) noexcept : x{new_x}, y{new_y}, w{width}, h{height} {}
-  constexpr UmbraRect(const UmbraPoint& p, int width, int height) noexcept : x{p.x}, y{p.y}, w{width}, h{height} {}
+  constexpr UmbraRect(const base::UmbraPoint& p, int width, int height) noexcept
+      : x{p.x}, y{p.y}, w{width}, h{height} {}
   /**
    * Sets the rectangle's position.
    * @param x the rectangle's top left corner's <i>x</i> coordinate
@@ -53,7 +56,7 @@ struct UmbraRect {
    * Sets the rectangle's position.
    * @param p the point whose coordinates are to become the rectangle's top letf corner's coordinates
    */
-  constexpr void setPos(const UmbraPoint& p) noexcept {
+  constexpr void setPos(const base::UmbraPoint& p) noexcept {
     x = p.x;
     y = p.y;
   }
@@ -83,7 +86,7 @@ struct UmbraRect {
    * @param w the rectangle's width
    * @param h the rectangle's height
    */
-  constexpr void set(const UmbraPoint& p, int new_w, int new_h) noexcept {
+  constexpr void set(const base::UmbraPoint& p, int new_w, int new_h) noexcept {
     setPos(p.x, p.y);
     setSize(new_w, new_h);
   }
@@ -103,7 +106,7 @@ struct UmbraRect {
    * @param p the point to be checked
    * @return <code>true</code> if the point is within the rectangle, <code>false</code> otherwise
    */
-  [[nodiscard]] constexpr bool contains(const UmbraPoint& p) const noexcept { return contains(p.x, p.y); }
+  [[nodiscard]] constexpr bool contains(const base::UmbraPoint& p) const noexcept { return contains(p.x, p.y); }
   /**
    * Sets the <code>mouseHover</code> and <code>mouseDown</code> statuses for the rectangle.
    * @param px the <i>x</i> coordinate to be checked
@@ -119,7 +122,7 @@ struct UmbraRect {
    * @param p the point to be checked
    * @param m a reference to the mouse event object
    */
-  inline void mouse(const UmbraPoint& p, TCOD_mouse_t& m) noexcept { mouse(p.x, p.y, m); }
+  inline void mouse(const base::UmbraPoint& p, TCOD_mouse_t& m) noexcept { mouse(p.x, p.y, m); }
   int x = 0;
   int y = 0;
   int w = 0;
@@ -127,3 +130,4 @@ struct UmbraRect {
   bool mouseHover = false;
   bool mouseDown = false;
 };
+}  // namespace base

@@ -33,6 +33,7 @@
 #define UMBRA_STYLESHEET_HPP
 #include <libtcod/libtcod.hpp>
 
+namespace widget {
 /**
  * Specificity levels. Used to determine whether an encountered value can override the one that has been already set.
  */
@@ -200,5 +201,5 @@ class UmbraStyleSheet {
    */
   UmbraStyleSheet();
 };
-
+}  // namespace widget
 #endif /* UMBRA_STYLESHEET_HPP */

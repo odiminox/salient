@@ -37,9 +37,10 @@
 #include "module/module.hpp"
 #include "widget/stylesheet.hpp"
 
-class UmbraWidget : public UmbraModule {
+namespace widget {
+class UmbraWidget : public module::UmbraModule {
   friend class UmbraCheckbox;
-  friend class UmbraButton;
+  friend class UmbraStyleSheetSet;
 
  public:
   UmbraWidget() = default;
@@ -53,40 +54,40 @@ class UmbraWidget : public UmbraModule {
   /**
    * Signal launched when the mouse cursor enters the widget.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMouseEnter{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMouseEnter{};
   /**
    * Signal launched when the mouse cursor leaves the widget.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMouseLeave{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMouseLeave{};
   /**
    * Signal lauched when the mouse cursor moves inside the widget.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMouseMove{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMouseMove{};
   /**
    * Signal launched when the mouse button is pressed when hovering over the widget. Corresponds to JavaScript's
    * <code>onmousedown</code> event.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMousePress{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMousePress{};
   /**
    * Signal launched when the mouse button is released when hovering over the widget. Corresponds to JavaScript's
    * <code>onmouseup</code> event.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMouseRelease{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMouseRelease{};
   /**
    * Signal launched when the mouse button is clicked when hovering over the widget. Corresponds to JavaScript's
    * <code>onclick</code> event. <strong>TODO:</strong> With the current implementation, this signal behaves identically
    * to <code>onMouseRelease</code>.
    */
-  Signal2<UmbraWidget*, UmbraEvent> onMouseClick{};
+  Signal2<UmbraWidget*, events::UmbraEvent> onMouseClick{};
 
   /**
    * Part of the screen where the widget is
    */
-  UmbraRect rect{};
+  base::UmbraRect rect{};
   /**
    * The style sheet containing information about the widget's appearance
    */
-  UmbraStyleSheet style{};
+  widget::UmbraStyleSheet style{};
 
  protected:
   /**
@@ -109,15 +110,16 @@ class UmbraWidget : public UmbraModule {
   /**
    * The drag zone: the are within the widget that can be clicked in order to drag it
    */
-  UmbraRect dragZone{};  // part of the widget we can click to drag it
+  base::UmbraRect dragZone{};  // part of the widget we can click to drag it
   /**
    * Coordinates of the minimise button
    */
-  UmbraPoint minimiseButton{};  // minimise button coordinates
+  base::UmbraPoint minimiseButton{};  // minimise button coordinates
   /**
    * Coordinates of the close button
    */
-  UmbraPoint closeButton{};  // close button coordinates
+  base::UmbraPoint closeButton{};  // close button coordinates
   bool canDrag{false};
   bool isDragging{false};
 };
+}  // namespace widget

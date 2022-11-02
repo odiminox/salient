@@ -37,6 +37,7 @@
 
 #include "engine/engine.hpp"
 
+namespace logger {
 /**
  * Type of message placed in the log.
  */
@@ -58,7 +59,7 @@ enum UmbraLogResult { UMBRA_LOGRESULT_FAILURE, UMBRA_LOGRESULT_SUCCESS, UMBRA_LO
  * saving the message, but also the caller-callee dependency (if used in both the caller and callee methods).
  */
 class UmbraLog {
-  friend int UmbraEngine::run();
+  friend int engine::UmbraEngine::run();
 
  private:
   /**
@@ -233,3 +234,4 @@ class UmbraLog {
    */
   static std::string get(int idx = -1);
 };
+}  // namespace logger

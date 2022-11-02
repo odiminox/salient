@@ -1,4 +1,4 @@
-#include "imod/imod_credits.hpp"
+#include "imod/credits.hpp"
 
 #include <SDL_timer.h>
 
@@ -6,6 +6,7 @@
 
 #include "version.hpp"
 
+namespace imod {
 UmbraModCredits::UmbraModCredits() {
   coords.set(0, 0);
   con = new TCODConsole(40, 1);
@@ -33,3 +34,5 @@ void UmbraModCredits::set(int x, int y, uint32_t d) {
   duration = d / 2;
   coords.set(x, y);
 }
+
+}  // namespace imod

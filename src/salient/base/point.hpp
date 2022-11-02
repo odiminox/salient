@@ -32,6 +32,7 @@
 #pragma once
 #include <libtcod/mouse_types.h>
 
+namespace base {
 struct UmbraPoint {
   constexpr UmbraPoint() noexcept = default;
   constexpr UmbraPoint(int new_x, int new_y) noexcept : x{new_x}, y{new_y} {}
@@ -87,3 +88,4 @@ struct UmbraPoint {
   bool mouseHover = false;
   bool mouseDown = false;
 };
+}  // namespace base

@@ -35,7 +35,7 @@
 #include <memory>
 #include <salient/salient.hpp>
 
-class Demo : public UmbraModule {
+class Demo : public module::UmbraModule {
  public:
   void onInitialise() override {
     img = std::make_unique<TCODImage>(getEngine()->getRootWidth(), getEngine()->getRootHeight());

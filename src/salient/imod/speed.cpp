@@ -24,12 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "imod/imod_speed.hpp"
+#include "imod/speed.hpp"
 
 #include <libtcod/libtcod.hpp>
 
 #include "engine/engine.hpp"
 
+namespace imod {
 #define MAXIMISED_MODE_WIDTH 30
 #define MAXIMISED_MODE_HEIGHT 8
 #define TIMEBAR_LENGTH (MAXIMISED_MODE_WIDTH - 4) * 2
@@ -48,7 +49,7 @@ UmbraModSpeed::UmbraModSpeed() {
 }
 
 void UmbraModSpeed::onEvent(const SDL_Event& ev) {
-  UmbraWidget::onEvent(ev);
+  widget::UmbraWidget::onEvent(ev);
   TCOD_mouse_t tcod_mouse{};
   tcod::sdl2::process_event(ev, tcod_mouse);
   const int mouse_x = tcod_mouse.cx - rect.x;
@@ -107,7 +108,7 @@ bool UmbraModSpeed::update() {
       timeBar->putPixel(px, 1, col);
     }
   }
-  if (getStatus() == UMBRA_ACTIVE)
+  if (getStatus() == module::UMBRA_ACTIVE)
     return true;
   else
     return false;
@@ -190,3 +191,4 @@ void UmbraModSpeed::onActivate() {
 }
 
 void UmbraModSpeed::onDeactivate() { TCODSystem::setFps(fps); }
+}  // namespace imod

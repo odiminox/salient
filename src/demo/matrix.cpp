@@ -47,7 +47,7 @@ bool Matrix::update() {
   if (next_lead_ms <= now) {
     next_lead_ms = now + rng() % 200;
     auto& new_lead = leads.emplace_back();
-    new_lead.x = rng() % (engine.getRootWidth() - 1);
+    new_lead.x = rng() % (salient_engine.getRootWidth() - 1);
     new_lead.y_duration_ms = 50 + rng() % 200;
     new_lead.next_y_ms = now + new_lead.y_duration_ms;
   }
@@ -66,7 +66,7 @@ void Matrix::render() {
   // Remove leads past the end.
   leads.erase(
       std::remove_if(
-          leads.begin(), leads.end(), [&](const MatrixLead& lead) { return lead.y >= engine.getRootHeight(); }),
+          leads.begin(), leads.end(), [&](const MatrixLead& lead) { return lead.y >= salient_engine.getRootHeight(); }),
       leads.end());
   // Render leads.
   for (const auto& lead : leads) {
@@ -86,5 +86,5 @@ void Matrix::render() {
 
 void Matrix::onActivate() {
   getEngine()->printCredits(51, 1);
-  console = tcod::Console{engine.getRootWidth(), engine.getRootHeight()};
+  console = tcod::Console{salient_engine.getRootWidth(), salient_engine.getRootHeight()};
 }

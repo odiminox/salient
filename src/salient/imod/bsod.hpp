@@ -29,52 +29,36 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "widget/widget_button.hpp"
-
+#pragma once
 #include <libtcod/console.hpp>
+#include <string>
 
-UmbraButton::UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, const char* tag) {
-  this->parent = parent;
-  rect.set(x, y, w, h);
-  this->tag = tag;
-}
+#include "widget/widget.hpp"
+namespace imod {
+class UmbraModBSOD : public widget::UmbraWidget {
+ public:
+  UmbraModBSOD();
+  /**
+   * Updates the internal logic of the BSOD.
+   * @return <code>true</code> if the module hasn't timed out and is supposed to continue active, <code>false</code> if
+   * it's timed out or the user requested its deactivation
+   */
+  bool update() override;
+  /**
+   * Renders the BSOD on the screen.
+   */
+  void render() override;
+  void onEvent(const SDL_Event&) override {}
 
-UmbraButton::UmbraButton(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
-  parent = new_parent;
-  rect.set(x, y, w, h);
-  tag = new_tag;
-}
+ private:
+  TCODConsole* bsod;
+  uint32_t startTime{0};
+  uint32_t duration{5000};
+  std::string msgString{""};
 
-void UmbraButton::set(UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
-  parent = new_parent;
-  rect.set(x, y, w, h);
-  tag = new_tag;
-}
-
-void UmbraButton::render(TCODConsole* con) {
-  if (!visible) return;
-  TCODColor col = con->getDefaultForeground();
-  UmbraStyleSheetSet* s;
-  if (rect.mouseHover) {
-    if (rect.mouseDown)
-      s = &style.active;
-    else
-      s = &style.hover;
-  } else
-    s = &style.normal;
-
-  con->setDefaultForeground(s->borderColour());
-  con->setDefaultBackground(s->backgroundColour());
-  con->printFrame(rect.x, rect.y, rect.w, rect.h, true, TCOD_BKGND_SET, NULL);
-  con->setDefaultForeground(s->colour());
-  if (!tag.empty())
-    con->printRectEx(
-        rect.x + (rect.w / 2),
-        rect.y + (rect.h / 2),
-        rect.w - 2,
-        rect.h - 2,
-        TCOD_BKGND_NONE,
-        TCOD_CENTER,
-        tag.c_str());
-  con->setDefaultForeground(col);
-}
+  /**
+   * Initialises the time count for a new timeout.
+   */
+  void activate();
+};
+}  // namespace imod

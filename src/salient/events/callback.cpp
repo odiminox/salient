@@ -36,6 +36,7 @@
 #include "engine/engine.hpp"
 #include "module/module.hpp"
 
+namespace events {
 // quit program
 UmbraCallbackQuit::UmbraCallbackQuit() { key = {TCODK_F4, 0, true, false, false}; }
 
@@ -74,9 +75,10 @@ void UmbraCallbackPause::action() { getEngine()->setPause(!getEngine()->getPause
 UmbraCallbackSpeedometer::UmbraCallbackSpeedometer() { key = {TCODK_F5, 0, false, false, false}; }
 
 void UmbraCallbackSpeedometer::action() {
-  if (getEngine()->getModule(UMBRA_INTERNAL_SPEEDOMETER)->getActive()) {
-    getEngine()->deactivateModule(UMBRA_INTERNAL_SPEEDOMETER);
+  if (getEngine()->getModule(engine::UMBRA_INTERNAL_SPEEDOMETER)->getActive()) {
+    getEngine()->deactivateModule(engine::UMBRA_INTERNAL_SPEEDOMETER);
   } else {
-    getEngine()->activateModule(UMBRA_INTERNAL_SPEEDOMETER);
+    getEngine()->activateModule(engine::UMBRA_INTERNAL_SPEEDOMETER);
   }
 }
+}  // namespace events

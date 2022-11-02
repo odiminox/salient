@@ -29,40 +29,59 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "widget/stylesheet.hpp"
+#include "widget/checkbox.hpp"
 
-#include <string.h>
-
-#include "salient.hpp"
+#include <libtcod/console.hpp>
 
 namespace widget {
-UmbraStyleSheetSet::UmbraStyleSheetSet() {
-  colour.set(TCODColor::white);
-  backgroundColour.set(TCODColor::darkerRed);
-  borderColour.set(TCODColor::blue);
+UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+  parent = new_parent;
+  area.set(x, y, w, h);
+  tag = new_tag;
+  checked = false;
+  visible = true;
 }
 
-UmbraStyleSheet::UmbraStyleSheet() {
-  // placeholder --- hardcoded values
-  active.colour(TCODColor::yellow);
-  hover.backgroundColour(TCODColor::darkRed);
-  active.backgroundColour(TCODColor::red);
-  hover.borderColour(TCODColor::lightBlue);
-  active.borderColour(TCODColor::lighterBlue);
+UmbraCheckbox::UmbraCheckbox(widget::UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
+  parent = new_parent;
+  area.set(x, y, w, h);
+  tag = new_tag;
+  checked = false;
+  visible = true;
 }
 
-UmbraStyleSheet& UmbraStyleSheet::colour(TCODColor val) {
-  normal.colour = hover.colour = active.colour = val;
-  return *this;
+void UmbraCheckbox::set(widget::UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+  parent = new_parent;
+  area.set(x, y, w, h);
+  tag = new_tag;
+  checked = false;
+  visible = true;
 }
 
-UmbraStyleSheet& UmbraStyleSheet::backgroundColour(TCODColor val) {
-  normal.backgroundColour = hover.backgroundColour = active.backgroundColour = val;
-  return *this;
+void UmbraCheckbox::mouse(TCOD_mouse_t& ms) {
+  if (!visible) return;
+  if (area.contains(ms.cx - parent->rect.x, ms.cy - parent->rect.y)) {
+    area.mouseHover = true;
+    onMouseOver();
+  } else
+    area.mouseHover = false;
+  if (area.mouseHover && ms.lbutton_pressed) {
+    area.mouseDown = true;
+    checked = !checked;
+    ms.lbutton_pressed = false;
+  } else
+    area.mouseDown = false;
 }
 
-UmbraStyleSheet& UmbraStyleSheet::borderColour(TCODColor val) {
-  normal.borderColour = hover.borderColour = active.borderColour = val;
-  return *this;
+void UmbraCheckbox::render(TCODConsole* con) {
+  if (!visible) return;
+  TCODColor col = con->getDefaultForeground();
+  con->setDefaultForeground(area.mouseHover ? TCODColor::white : TCODColor::lighterBlue);  // placeholder!
+  if (checked)
+    con->putChar(area.x, area.y, TCOD_CHAR_CHECKBOX_SET, TCOD_BKGND_NONE);
+  else
+    con->putChar(area.x, area.y, TCOD_CHAR_CHECKBOX_UNSET, TCOD_BKGND_NONE);
+  if (!tag.empty()) con->printRectEx(area.x + 2, area.y, area.w - 2, area.h, TCOD_BKGND_NONE, TCOD_LEFT, tag.c_str());
+  con->setDefaultForeground(col);
 }
 }  // namespace widget

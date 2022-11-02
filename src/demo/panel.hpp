@@ -36,7 +36,7 @@
 
 #include "globals.hpp"
 
-class Panel : public UmbraWidget {
+class Panel : public widget::UmbraWidget {
  public:
   Panel() {
     rect.set(posx, posy, width, height);
@@ -45,11 +45,11 @@ class Panel : public UmbraWidget {
   bool update() override;
   void render() override;
   void onEvent(const SDL_Event& ev) override {
-    UmbraWidget::onEvent(ev);
+    widget::UmbraWidget::onEvent(ev);
     bQuit.onEvent(ev);
     return;
   }
-  void onQuit(UmbraWidget*, UmbraEvent) { engine.deactivateAll(true); }
+  void onQuit(widget::UmbraWidget*, events::UmbraEvent) { salient_engine.deactivateAll(true); }
 
  private:
   int width{24};
@@ -59,7 +59,7 @@ class Panel : public UmbraWidget {
   uint32_t delay{3000};
   uint64_t lastHover{0};  // the time the mouse last hovered over the panel
   TCODConsole panel{width, height};
-  UmbraButton bQuit{this, 2, 2, 20, 3, "Quit"};
+  widget::UmbraButton bQuit{this, 2, 2, 20, 3, "Quit"};
 };
 
 #endif

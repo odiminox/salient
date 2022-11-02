@@ -41,11 +41,11 @@
 #include "panel.hpp"
 #include "rabbit.hpp"
 
-UmbraEngine engine("data/cfg/salient.txt", UMBRA_REGISTER_ALL);
+engine::UmbraEngine salient_engine("data/cfg/salient.txt", engine::UMBRA_REGISTER_ALL);
 
-class ModuleFactory : public UmbraModuleFactory {
+class ModuleFactory : public module::UmbraModuleFactory {
  public:
-  UmbraModule* createModule(const char* name) {
+  module::UmbraModule* createModule(const char* name) {
     if (strcmp(name, "matrix") == 0)
       return new Matrix();
     else if (strcmp(name, "demo") == 0)
@@ -65,11 +65,11 @@ class ModuleFactory : public UmbraModuleFactory {
 
 int main(int argc, char* argv[]) {
   // set window title
-  engine.setWindowTitle("Salient demo");
-  engine.setKeyboardMode(UMBRA_KEYBOARD_SDL);
+  salient_engine.setWindowTitle("Salient demo");
+  salient_engine.setKeyboardMode(engine::UMBRA_KEYBOARD_SDL);
   // initialise and run the engine
-  if (engine.loadModuleConfiguration("data/cfg/module.txt", new ModuleFactory()) && engine.initialise())
-    return engine.run();
+  if (salient_engine.loadModuleConfiguration("data/cfg/module.txt", new ModuleFactory()) && salient_engine.initialise())
+    return salient_engine.run();
   else
     return 1;
 }

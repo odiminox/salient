@@ -34,24 +34,24 @@
 #include <libtcod/libtcod.hpp>
 #include <salient/salient.hpp>
 
-class RabbitButton : public UmbraButton {};
+class RabbitButton : public widget::UmbraStyleSheetSet {};
 
-class RabbitWidget : public UmbraWidget {
+class RabbitWidget : public widget::UmbraWidget {
  public:
   RabbitWidget();
   void onEvent(const SDL_Event& ev) override {
-    UmbraWidget::onEvent(ev);
+    widget::UmbraWidget::onEvent(ev);
     button.onEvent(ev);
   }
   void render() override;
   // slots
-  void onNextDemo(UmbraWidget* w, UmbraEvent ev);
+  void onNextDemo(widget::UmbraWidget* w, events::UmbraEvent ev);
 
  protected:
   void onInitialise() override;
 
  private:
-  UmbraButton button{};
+  widget::UmbraButton button{};
   TCODConsole rabbit{24, 12};
 };
 

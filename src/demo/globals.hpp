@@ -34,4 +34,4 @@
 
 enum { MOD_MATRIX, MOD_DEMO, MOD_RABBIT, MOD_PANEL, MOD_CREDITS };
 
-extern UmbraEngine engine;
+extern engine::UmbraEngine salient_engine;

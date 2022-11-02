@@ -35,7 +35,7 @@
 #include <salient/salient.hpp>
 #include <string>
 
-class Credits : public UmbraWidget {
+class Credits : public widget::UmbraWidget {
  public:
   Credits() {
     rect.set(getEngine()->getRootWidth() / 2 - 24, getEngine()->getRootHeight() / 2 - 5, 48, 11);

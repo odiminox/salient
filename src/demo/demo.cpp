@@ -76,7 +76,7 @@ void Demo::onEvent(const SDL_Event& ev) {
       case SDLK_RETURN:
       case SDLK_RETURN2:
       case SDLK_KP_ENTER:
-        UmbraLog::error("This is a test error");
+        logger::UmbraLog::error("This is a test error");
         getEngine()->displayError();
         break;
       case SDLK_ESCAPE:

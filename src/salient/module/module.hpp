@@ -40,6 +40,7 @@
 
 #include "engine/engine_fwd.hpp"
 
+namespace module {
 enum UmbraModuleStatus { UMBRA_UNINITIALISED, UMBRA_INACTIVE, UMBRA_ACTIVE, UMBRA_PAUSED };
 
 /**
@@ -129,7 +130,7 @@ class UmbraModule {
   /**
    * Fetches the module's ID number. Used mainly for debugging purposes and should play no real role in a release
    * version of any program.
-   * @return the module's ID number, assigned by UmbraEngine::registerModule().
+   * @return the module's ID number, assigned by engine::config::UmbraEngine::registerModule().
    */
   inline int getID() { return id_; }
   /**
@@ -175,7 +176,7 @@ class UmbraModule {
    */
   inline TCOD_dice_t getDiceParam(const char* param_name) { return getParameter(param_name).value.dice; }
 
- protected:
+  // protected:
   /**
    * Custom code that is executed once and only once, when the module is activated for the first time.<br>It is used
    * mainly to allocate resources that might be unavailable at the moment of the module's instantiation.
@@ -234,9 +235,9 @@ class UmbraModule {
    * Provides a pointer to the engine object.
    * @return a pointer to the engine object
    */
-  UmbraEngine* getEngine();
+  engine::UmbraEngine* getEngine();
 
- private:
+  // protected:
   struct UmbraModuleParameter {
     std::string name;
     TCOD_value_t value;
@@ -269,3 +270,4 @@ class UmbraModule {
   uint32_t timeout_end_{0xffffffff};
   std::string name_{};
 };
+}  // namespace module

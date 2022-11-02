@@ -34,7 +34,7 @@
 #include "globals.hpp"
 
 RabbitWidget::RabbitWidget() {
-  rect.set(engine.getRootWidth() / 2 - 12, engine.getRootHeight() / 2 - 6, 24, 12);
+  rect.set(salient_engine.getRootWidth() / 2 - 12, salient_engine.getRootHeight() / 2 - 6, 24, 12);
   setDragZone(0, 0, 24, 1);
   button.set(this, 10, 7, 4, 3, "OK");
 }
@@ -44,9 +44,9 @@ void RabbitWidget::onInitialise() {
   button.onMouseClick.connect(this, &RabbitWidget::onNextDemo);
 }
 
-void RabbitWidget::onNextDemo(UmbraWidget*, UmbraEvent) {
+void RabbitWidget::onNextDemo(widget::UmbraWidget*, events::UmbraEvent) {
   setActive(false);
-  engine.getModule("matrix")->setActive(false);
+  salient_engine.getModule("matrix")->setActive(false);
 }
 
 void RabbitWidget::render() {

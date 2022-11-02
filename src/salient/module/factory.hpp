@@ -31,9 +31,13 @@
  */
 #pragma once
 
+#include "module.hpp"
+
+namespace module {
 // a factory that creates a module from its name
 class UmbraModuleFactory {
  public:
-  virtual UmbraModule* createModule(const char* name) = 0;
+  virtual module::UmbraModule* createModule(const char* name) = 0;
   virtual ~UmbraModuleFactory() = default;
 };
+}  // namespace module

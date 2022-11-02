@@ -31,9 +31,8 @@
  */
 #pragma once
 #include <libtcod/console_types.h>
-
+namespace base {
 class UmbraKey {
-  friend class UmbraEngine;
   friend class UmbraCallback;
 
  public:
@@ -66,3 +65,4 @@ class UmbraKey {
   bool ctrl_{false};
   bool shift_{false};
 };
+}  // namespace base
