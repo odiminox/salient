@@ -32,7 +32,7 @@
 #ifndef CIRCLE_HPP
 #define CIRCLE_HPP
 #include <libtcod/libtcod.hpp>
-#include <umbra/umbra.hpp>
+#include <salient/umbra.hpp>
 
 class Circle : public UmbraModule {
  public:

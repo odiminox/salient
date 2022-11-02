@@ -14,7 +14,7 @@
         "-Wdeprecated",
     ],
     "cmake.configureSettings": {
-        "BUILD_UMBRA_DEMO": "ON"
+        "BUILD_SALIENT_DEMO": "ON"
     },
     "files.associations": {
         "cstdint": "cpp",

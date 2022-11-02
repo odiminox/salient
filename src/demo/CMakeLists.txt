@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13...3.24)
 
 project(
-    umbra-demo
+    salient-demo
     LANGUAGES C CXX
 )
 
@@ -32,5 +32,5 @@ target_link_libraries(
         SDL2::SDL2
         SDL2::SDL2main
         libtcod::libtcod
-        umbra::umbra
+        salient::salient
 )

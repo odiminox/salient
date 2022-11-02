@@ -33,7 +33,7 @@
 #define MODULE_DEMO_HPP
 #include <libtcod/libtcod.hpp>
 #include <memory>
-#include <umbra/umbra.hpp>
+#include <salient/umbra.hpp>
 
 class Demo : public UmbraModule {
  public:

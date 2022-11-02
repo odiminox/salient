@@ -30,7 +30,7 @@ endif()
 
 file(
     GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
-    ${PROJECT_SOURCE_DIR}/src/umbra/*.cpp
+    ${PROJECT_SOURCE_DIR}/src/salient/*.cpp
 )
 add_library(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -61,9 +61,9 @@ target_link_libraries(
         SDL2::SDL2
         libtcod::libtcod
 )
-add_library(umbra::umbra ALIAS ${PROJECT_NAME})
+add_library(salient::salient ALIAS ${PROJECT_NAME})
 
-set(BUILD_UMBRA_DEMO OFF CACHE BOOL "Build the demo program.")
-if(BUILD_UMBRA_DEMO)
+set(BUILD_SALIENT_DEMO OFF CACHE BOOL "Build the demo program.")
+if(BUILD_SALIENT_DEMO)
     add_subdirectory(src/demo)
 endif()
