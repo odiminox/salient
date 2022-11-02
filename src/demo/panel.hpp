@@ -32,7 +32,7 @@
 #ifndef PANEL_HPP
 #define PANEL_HPP
 #include <libtcod/libtcod.hpp>
-#include <salient/umbra.hpp>
+#include <salient/salient.hpp>
 
 #include "globals.hpp"
 

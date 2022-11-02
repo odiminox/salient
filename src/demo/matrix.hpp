@@ -33,7 +33,7 @@
 #define MODULE_CREDITS_HPP
 #include <libtcod/libtcod.hpp>
 #include <random>
-#include <salient/umbra.hpp>
+#include <salient/salient.hpp>
 #include <vector>
 
 struct MatrixLead {

@@ -29,52 +29,47 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "widget_button.hpp"
+#include "imod/imod_bsod.hpp"
 
-#include <libtcod/console.hpp>
+#include <SDL_timer.h>
 
-UmbraButton::UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, const char* tag) {
-  this->parent = parent;
-  rect.set(x, y, w, h);
-  this->tag = tag;
+#include <libtcod/libtcod.hpp>
+
+#include "engine/engine.hpp"
+#include "log/log.hpp"
+
+UmbraModBSOD::UmbraModBSOD() {
+  bsod = new TCODConsole(30, 8);
+  closeButton.set(28, 0);
+  rect.set(getEngine()->getRootWidth() - 31, getEngine()->getRootHeight() - 9, 30, 8);
+  setDragZone(0, 0, 28, 1);
+  setName("umbraBSOD");
 }
 
-UmbraButton::UmbraButton(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
-  parent = new_parent;
-  rect.set(x, y, w, h);
-  tag = new_tag;
+void UmbraModBSOD::activate() {
+  startTime = SDL_GetTicks();
+  msgString = UmbraLog::get();
 }
 
-void UmbraButton::set(UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
-  parent = new_parent;
-  rect.set(x, y, w, h);
-  tag = new_tag;
+bool UmbraModBSOD::update() {
+  if (closeButton.mouseDown) setActive(false);
+  if (SDL_GetTicks() - startTime >= duration)
+    return false;
+  else
+    return true;
 }
 
-void UmbraButton::render(TCODConsole* con) {
-  if (!visible) return;
-  TCODColor col = con->getDefaultForeground();
-  UmbraStyleSheetSet* s;
-  if (rect.mouseHover) {
-    if (rect.mouseDown)
-      s = &style.active;
-    else
-      s = &style.hover;
-  } else
-    s = &style.normal;
-
-  con->setDefaultForeground(s->borderColour());
-  con->setDefaultBackground(s->backgroundColour());
-  con->printFrame(rect.x, rect.y, rect.w, rect.h, true, TCOD_BKGND_SET, NULL);
-  con->setDefaultForeground(s->colour());
-  if (!tag.empty())
-    con->printRectEx(
-        rect.x + (rect.w / 2),
-        rect.y + (rect.h / 2),
-        rect.w - 2,
-        rect.h - 2,
-        TCOD_BKGND_NONE,
-        TCOD_CENTER,
-        tag.c_str());
-  con->setDefaultForeground(col);
+void UmbraModBSOD::render() {
+  bsod->setDefaultBackground(TCODColor::blue);
+  bsod->clear();
+  bsod->setDefaultForeground(TCODColor::white);
+  bsod->printFrame(0, 0, 30, 8, true, TCOD_BKGND_NONE, "Umbra BSOD");
+  bsod->printRectEx(15, 2, 28, 5, TCOD_BKGND_NONE, TCOD_CENTER, UmbraLog::get().c_str());
+  if (closeButton.mouseHover) bsod->setDefaultForeground(TCODColor::red);
+  bsod->putChar(closeButton.x, closeButton.y, 'X', TCOD_BKGND_NONE);
+  if (dragZone.mouseHover || isDragging) {
+    bsod->setDefaultBackground(TCODColor::lightRed);
+    bsod->rect(9, 0, 12, 1, false, TCOD_BKGND_SET);
+  }
+  TCODConsole::blit(bsod, 0, 0, rect.w, rect.h, TCODConsole::root, rect.x, rect.y, 1.0f, 0.5f);
 }

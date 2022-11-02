@@ -33,8 +33,8 @@
 
 #include <iostream>
 
-#include "rect.hpp"
-#include "widget.hpp"
+#include "base/rect.hpp"
+#include "widget/widget.hpp"
 
 class UmbraCheckbox {
  public:

@@ -29,15 +29,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "module.hpp"
+#include "module/module.hpp"
 
 #include <SDL_timer.h>
 #include <libtcod/parser.h>
 
 #include <libtcod/sys.hpp>
 
-#include "engine.hpp"
-#include "log.hpp"
+#include "engine/engine.hpp"
+#include "log/log.hpp"
 
 void UmbraModule::setActive(bool active) {
   if (status_ == UMBRA_UNINITIALISED) {

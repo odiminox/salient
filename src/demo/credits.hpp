@@ -32,7 +32,7 @@
 #ifndef CREDITS_HPP
 #define CREDITS_HPP
 #include <libtcod/libtcod.hpp>
-#include <salient/umbra.hpp>
+#include <salient/salient.hpp>
 #include <string>
 
 class Credits : public UmbraWidget {

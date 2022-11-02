@@ -23,6 +23,7 @@ MACRO(HEADER_DIRECTORIES return_list)
 ENDMACRO()
 
 HEADER_DIRECTORIES(header_list)
+include_directories(${header_list})
 
 if(NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")  # Keep all runtime files in one directory.

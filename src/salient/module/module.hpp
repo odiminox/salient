@@ -38,7 +38,7 @@
 #include <string>
 #include <vector>
 
-#include "engine_fwd.hpp"
+#include "engine/engine_fwd.hpp"
 
 enum UmbraModuleStatus { UMBRA_UNINITIALISED, UMBRA_INACTIVE, UMBRA_ACTIVE, UMBRA_PAUSED };
 

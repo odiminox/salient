@@ -29,31 +29,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef UMBRA_IMOD_CREDITS_HPP
-#define UMBRA_IMOD_CREDITS_HPP
-#include <libtcod/console.hpp>
+#ifndef SALIENT_HPP
+#define SALIENT_HPP
 
-#include "engine.hpp"
-#include "module.hpp"
-#include "point.hpp"
+#include "libtcod.hpp"
 
-class UmbraModCredits : public UmbraModule {
-  friend void UmbraEngine::printCredits(int x, int y, uint32_t duration);
+// signal/slot utility
+#include "base/circle.hpp"
+#include "base/font.hpp"
+#include "base/key.hpp"
+#include "base/point.hpp"
+#include "base/rect.hpp"
+#include "config/config.hpp"
+#include "engine/engine.hpp"
+#include "events/callback.hpp"
+#include "events/delegate.hpp"
+#include "events/events.hpp"
+#include "events/signal.hpp"
+#include "imod/imod_bsod.hpp"
+#include "imod/imod_credits.hpp"
+#include "imod/imod_speed.hpp"
+#include "log/log.hpp"
+#include "module/module.hpp"
+#include "module/module_factory.hpp"
+#include "version.hpp"
+#include "widget/widget.hpp"
+#include "widget/widget_button.hpp"
+#include "widget/widget_checkbox.hpp"
 
- public:
-  UmbraModCredits();
-  bool update() override;
-  void render() override;
-  void onActivate() override;
-  void onEvent(const SDL_Event&) override {}
-
- private:
-  void set(int x, int y, uint32_t duration);
-  TCODConsole* con;
-  UmbraPoint coords;
-  uint32_t startTime;
-  float alpha;
-  uint32_t duration;
-};
-
-#endif /* UMBRA_IMOD_CREDITS_HPP */
+#endif

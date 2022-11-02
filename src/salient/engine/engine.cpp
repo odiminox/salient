@@ -43,13 +43,14 @@
 #include <libtcod/libtcod.hpp>
 #include <vector>
 
-#include "callback.hpp"
-#include "font.hpp"
-#include "imod_bsod.hpp"
-#include "imod_credits.hpp"
-#include "imod_speed.hpp"
-#include "log.hpp"
+#include "base/font.hpp"
+#include "events/callback.hpp"
+#include "imod/imod_bsod.hpp"
+#include "imod/imod_credits.hpp"
+#include "imod/imod_speed.hpp"
+#include "log/log.hpp"
 #include "version.hpp"
+
 
 TCOD_renderer_t UmbraEngine::renderer = TCOD_RENDERER_SDL2;
 UmbraEngine* UmbraEngine::engineInstance = NULL;

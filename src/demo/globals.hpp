@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #pragma once
-#include <salient/engine.hpp>
+#include <salient/engine/engine.hpp>
 
 enum { MOD_MATRIX, MOD_DEMO, MOD_RABBIT, MOD_PANEL, MOD_CREDITS };
 

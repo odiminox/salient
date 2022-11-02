@@ -29,34 +29,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#pragma once
+#ifndef UMBRA_IMOD_CREDITS_HPP
+#define UMBRA_IMOD_CREDITS_HPP
 #include <libtcod/console.hpp>
-#include <string>
 
-#include "widget.hpp"
-class UmbraModBSOD : public UmbraWidget {
+#include "base/point.hpp"
+#include "engine/engine.hpp"
+#include "module/module.hpp"
+
+
+class UmbraModCredits : public UmbraModule {
+  friend void UmbraEngine::printCredits(int x, int y, uint32_t duration);
+
  public:
-  UmbraModBSOD();
-  /**
-   * Updates the internal logic of the BSOD.
-   * @return <code>true</code> if the module hasn't timed out and is supposed to continue active, <code>false</code> if
-   * it's timed out or the user requested its deactivation
-   */
+  UmbraModCredits();
   bool update() override;
-  /**
-   * Renders the BSOD on the screen.
-   */
   void render() override;
+  void onActivate() override;
   void onEvent(const SDL_Event&) override {}
 
  private:
-  TCODConsole* bsod;
-  uint32_t startTime{0};
-  uint32_t duration{5000};
-  std::string msgString{""};
-
-  /**
-   * Initialises the time count for a new timeout.
-   */
-  void activate();
+  void set(int x, int y, uint32_t duration);
+  TCODConsole* con;
+  UmbraPoint coords;
+  uint32_t startTime;
+  float alpha;
+  uint32_t duration;
 };
+
+#endif /* UMBRA_IMOD_CREDITS_HPP */

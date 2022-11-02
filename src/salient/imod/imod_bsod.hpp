@@ -30,44 +30,33 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #pragma once
+#include <libtcod/console.hpp>
+#include <string>
 
-#include <iostream>
-
-#include "rect.hpp"
-#include "widget.hpp"
-
-class UmbraButton : public UmbraWidget {
+#include "widget/widget.hpp"
+class UmbraModBSOD : public UmbraWidget {
  public:
-  UmbraButton() = default;
-  UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
-  UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, std::string tag = "");
-  virtual ~UmbraButton() = default;
+  UmbraModBSOD();
   /**
-   * Sets the basic properties of the button: parent widget, position in the console, size and tag.
-   * @param parent a pointer to the UmbraWidget containing the button
-   * @param x the <code>x</code> coordinate of the top left corner of the button area
-   * @param y the <code>y</code> coordinate of the top left corner of the button area
-   * @param w the button area's width
-   * @param h the button area's height
-   * @param tag the tag's text
+   * Updates the internal logic of the BSOD.
+   * @return <code>true</code> if the module hasn't timed out and is supposed to continue active, <code>false</code> if
+   * it's timed out or the user requested its deactivation
    */
-  void set(UmbraWidget* parent, int x, int y, int w, int h, const char* tag = "");
+  bool update() override;
   /**
-   * Sets the basic properties of the button: parent widget, position in the console, size and tag.
-   * @param new_parent a pointer to the UmbraWidget containing the button
-   * @param x the <code>x</code> coordinate of the top left corner of the button area
-   * @param y the <code>y</code> coordinate of the top left corner of the button area
-   * @param w the button area's width
-   * @param h the button area's height
-   * @param new_tag the tag's text
+   * Renders the BSOD on the screen.
    */
-  inline void set(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag = "") {
-    set(new_parent, x, y, w, h, new_tag.c_str());
-  }
+  void render() override;
+  void onEvent(const SDL_Event&) override {}
+
+ private:
+  TCODConsole* bsod;
+  uint32_t startTime{0};
+  uint32_t duration{5000};
+  std::string msgString{""};
+
   /**
-   * Renders the button.
+   * Initialises the time count for a new timeout.
    */
-  virtual void render(TCODConsole* con);
-  bool visible{true};  // visibility (can be toggled)
-  std::string tag{""};  // the descriptive tag
+  void activate();
 };

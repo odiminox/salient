@@ -29,14 +29,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "config.hpp"
+#include "config/config.hpp"
 
 #include <stdio.h>
 
 #include <array>
 #include <libtcod/libtcod.hpp>
 
-#include "log.hpp"
+#include "log/log.hpp"
 
 static constexpr std::array logLevelName = {"info", "notice", "warning", "error", "fatal error", "none"};
 

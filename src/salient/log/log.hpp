@@ -35,7 +35,7 @@
 #include <string_view>
 #include <vector>
 
-#include "engine.hpp"
+#include "engine/engine.hpp"
 
 /**
  * Type of message placed in the log.

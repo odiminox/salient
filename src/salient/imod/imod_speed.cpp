@@ -24,11 +24,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "imod_speed.hpp"
+#include "imod/imod_speed.hpp"
 
 #include <libtcod/libtcod.hpp>
 
-#include "engine.hpp"
+#include "engine/engine.hpp"
 
 #define MAXIMISED_MODE_WIDTH 30
 #define MAXIMISED_MODE_HEIGHT 8

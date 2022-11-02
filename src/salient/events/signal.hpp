@@ -11,7 +11,7 @@
 
 #include <set>
 
-#include "delegate.hpp"
+#include "events/delegate.hpp"
 
 template <class Param0 = void>
 class Signal0 {

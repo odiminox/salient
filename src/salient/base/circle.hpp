@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #pragma once
-#include "point.hpp"
+#include "base/point.hpp"
 
 class UmbraCircle {
  public:

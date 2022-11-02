@@ -35,7 +35,7 @@
 #include <libtcod/list.hpp>
 #include <vector>
 
-#include "font.hpp"
+#include "base/font.hpp"
 
 enum UmbraLogLevel {
   UMBRA_LOGLEVEL_INFO,

@@ -40,11 +40,12 @@
 #include <libtcod/list.hpp>
 #include <string>
 
-#include "callback_fwd.hpp"
-#include "config.hpp"
-#include "key.hpp"
-#include "module.hpp"
-#include "module_factory.hpp"
+#include "base/key.hpp"
+#include "config/config.hpp"
+#include "events/callback_fwd.hpp"
+#include "module/module.hpp"
+#include "module/module_factory.hpp"
+
 
 /**
  * The keyboard modes available in Umbra. They correspond to the ones used in libtcod.

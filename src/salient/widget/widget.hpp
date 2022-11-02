@@ -30,12 +30,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #pragma once
-#include "events.hpp"
-#include "module.hpp"
-#include "point.hpp"
-#include "rect.hpp"
-#include "signal.hpp"
-#include "stylesheet.hpp"
+#include "base/point.hpp"
+#include "base/rect.hpp"
+#include "events/events.hpp"
+#include "events/signal.hpp"
+#include "module/module.hpp"
+#include "widget/stylesheet.hpp"
 
 class UmbraWidget : public UmbraModule {
   friend class UmbraCheckbox;

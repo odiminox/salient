@@ -30,8 +30,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #pragma once
-#include "engine.hpp"
-#include "key.hpp"
+#include "base/key.hpp"
+#include "engine/engine.hpp"
+
 
 class UmbraCallback {
   friend class UmbraEngine;

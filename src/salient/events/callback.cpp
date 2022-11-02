@@ -29,12 +29,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "callback.hpp"
+#include "events/callback.hpp"
 
 #include <libtcod/libtcod.hpp>
 
-#include "engine.hpp"
-#include "module.hpp"
+#include "engine/engine.hpp"
+#include "module/module.hpp"
 
 // quit program
 UmbraCallbackQuit::UmbraCallbackQuit() { key = {TCODK_F4, 0, true, false, false}; }

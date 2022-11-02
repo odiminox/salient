@@ -29,56 +29,52 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#pragma once
-#include "widget.hpp"
+#include "widget/widget_button.hpp"
 
-class UmbraModSpeed : public UmbraWidget {
-  friend class UmbraEngine;
+#include <libtcod/console.hpp>
 
- public:
-  UmbraModSpeed();
-  /**
-   * Gathers data about time useage.
-   * @return <code>true</code> if Speedo is to continue active, <code>false</code> it it should be deactivated
-   */
-  bool update() override;
-  /**
-   * Displays the Speedo widget.
-   */
-  void render() override;
-  /**
-   * Parses mouse input.
-   */
-  void mouse(TCOD_mouse_t&) override{};
-  void onEvent(const SDL_Event&) override;
-  /**
-   * Sets the minimised state of the widget.
-   * @param val <code>true</code> for minimised, <code>false</code> for maximised
-   */
-  inline void setMinimised(bool val) { isMinimized = val; }
+UmbraButton::UmbraButton(UmbraWidget* parent, int x, int y, int w, int h, const char* tag) {
+  this->parent = parent;
+  rect.set(x, y, w, h);
+  this->tag = tag;
+}
 
- private:
-  float cumulatedElapsed{0.0f};
-  float updateTime{0.0f};
-  float renderTime{0.0f};
-  int updatePer{0}, renderPer{0}, sysPer{0};
-  TCODImage* timeBar{};
-  TCODConsole* speed{};
-  int fps{};
-  bool isMinimized{false};
+UmbraButton::UmbraButton(UmbraWidget* new_parent, int x, int y, int w, int h, std::string new_tag) {
+  parent = new_parent;
+  rect.set(x, y, w, h);
+  tag = new_tag;
+}
 
-  /**
-   * Removes the frames per second limit in order to attempt to enforce a 100% load on the CPU.
-   */
-  void onActivate();
-  /**
-   * Restores the frames per second limit from before Speedo activation.
-   */
-  void onDeactivate();
-  /**
-   * Uptades the update and render times.
-   * @param updateTime the time spend on <code>update()</code> methods
-   * @param renderTime the time spend on <code>render()</code> methods
-   */
-  void setTimes(long updateTime, long renderTime);  // this is called by engine each frame
-};
+void UmbraButton::set(UmbraWidget* new_parent, int x, int y, int w, int h, const char* new_tag) {
+  parent = new_parent;
+  rect.set(x, y, w, h);
+  tag = new_tag;
+}
+
+void UmbraButton::render(TCODConsole* con) {
+  if (!visible) return;
+  TCODColor col = con->getDefaultForeground();
+  UmbraStyleSheetSet* s;
+  if (rect.mouseHover) {
+    if (rect.mouseDown)
+      s = &style.active;
+    else
+      s = &style.hover;
+  } else
+    s = &style.normal;
+
+  con->setDefaultForeground(s->borderColour());
+  con->setDefaultBackground(s->backgroundColour());
+  con->printFrame(rect.x, rect.y, rect.w, rect.h, true, TCOD_BKGND_SET, NULL);
+  con->setDefaultForeground(s->colour());
+  if (!tag.empty())
+    con->printRectEx(
+        rect.x + (rect.w / 2),
+        rect.y + (rect.h / 2),
+        rect.w - 2,
+        rect.h - 2,
+        TCOD_BKGND_NONE,
+        TCOD_CENTER,
+        tag.c_str());
+  con->setDefaultForeground(col);
+}

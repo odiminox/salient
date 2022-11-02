@@ -32,7 +32,7 @@
 #ifndef RABBIT_HPP
 #define RABBIT_HPP
 #include <libtcod/libtcod.hpp>
-#include <salient/umbra.hpp>
+#include <salient/salient.hpp>
 
 class RabbitButton : public UmbraButton {};
 

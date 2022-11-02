@@ -1,4 +1,4 @@
-#include "imod_credits.hpp"
+#include "imod/imod_credits.hpp"
 
 #include <SDL_timer.h>
 

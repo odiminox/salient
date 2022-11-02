@@ -32,7 +32,7 @@
 #pragma once
 #include <libtcod/mouse_types.h>
 
-#include "point.hpp"
+#include "base/point.hpp"
 
 struct UmbraRect {
   constexpr UmbraRect() noexcept = default;

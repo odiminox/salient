@@ -29,32 +29,56 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef UMBRA_HPP
-#define UMBRA_HPP
+#pragma once
+#include "widget/widget.hpp"
 
-#include "libtcod.hpp"
+class UmbraModSpeed : public UmbraWidget {
+  friend class UmbraEngine;
 
-// signal/slot utility
-#include "callback.hpp"
-#include "circle.hpp"
-#include "config.hpp"
-#include "delegate.hpp"
-#include "engine.hpp"
-#include "events.hpp"
-#include "font.hpp"
-#include "imod_bsod.hpp"
-#include "imod_credits.hpp"
-#include "imod_speed.hpp"
-#include "key.hpp"
-#include "log.hpp"
-#include "module.hpp"
-#include "module_factory.hpp"
-#include "point.hpp"
-#include "rect.hpp"
-#include "signal.hpp"
-#include "version.hpp"
-#include "widget.hpp"
-#include "widget_button.hpp"
-#include "widget_checkbox.hpp"
+ public:
+  UmbraModSpeed();
+  /**
+   * Gathers data about time useage.
+   * @return <code>true</code> if Speedo is to continue active, <code>false</code> it it should be deactivated
+   */
+  bool update() override;
+  /**
+   * Displays the Speedo widget.
+   */
+  void render() override;
+  /**
+   * Parses mouse input.
+   */
+  void mouse(TCOD_mouse_t&) override{};
+  void onEvent(const SDL_Event&) override;
+  /**
+   * Sets the minimised state of the widget.
+   * @param val <code>true</code> for minimised, <code>false</code> for maximised
+   */
+  inline void setMinimised(bool val) { isMinimized = val; }
 
-#endif
+ private:
+  float cumulatedElapsed{0.0f};
+  float updateTime{0.0f};
+  float renderTime{0.0f};
+  int updatePer{0}, renderPer{0}, sysPer{0};
+  TCODImage* timeBar{};
+  TCODConsole* speed{};
+  int fps{};
+  bool isMinimized{false};
+
+  /**
+   * Removes the frames per second limit in order to attempt to enforce a 100% load on the CPU.
+   */
+  void onActivate();
+  /**
+   * Restores the frames per second limit from before Speedo activation.
+   */
+  void onDeactivate();
+  /**
+   * Uptades the update and render times.
+   * @param updateTime the time spend on <code>update()</code> methods
+   * @param renderTime the time spend on <code>render()</code> methods
+   */
+  void setTimes(long updateTime, long renderTime);  // this is called by engine each frame
+};

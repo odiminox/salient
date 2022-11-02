@@ -29,12 +29,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "widget.hpp"
+#include "widget/widget.hpp"
 
 #include <libtcod.hpp>
 
-#include "engine.hpp"
-#include "stylesheet.hpp"
+#include "engine/engine.hpp"
+#include "widget/stylesheet.hpp"
 
 void UmbraWidget::onEvent(const SDL_Event& ev) {
   TCOD_mouse_t tcod_mouse{};
