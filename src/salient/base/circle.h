@@ -39,11 +39,6 @@
 extern "C" {
 #endif
 
-SALIENT_API void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data);
-SALIENT_API void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data);
-SALIENT_API bool SALIENT_circle_contains(SALIENT_circle_data_t* data);
-SALIENT_API bool SALIENT_circle_mouse(SALIENT_circle_data_t* data);
-
 typedef struct {
   int x;
   int y;
@@ -51,6 +46,8 @@ typedef struct {
   bool mouse_hover;
   bool mouse_down;
 } SALIENT_circle_data_t;
+
+SALIENTLIB_API void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data);
 
 #ifdef __cplusplus
 }  // extern "C"
