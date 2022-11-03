@@ -55,14 +55,12 @@ endif()
 find_package(fmt CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(libtcod CONFIG REQUIRED)
-find_package(Microsoft.GSL CONFIG REQUIRED)
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
         fmt::fmt
         SDL2::SDL2
         SDL2::SDL2main
-        Microsoft.GSL::GSL
         libtcod::libtcod
 )
 add_library(salient::salient ALIAS ${PROJECT_NAME})
