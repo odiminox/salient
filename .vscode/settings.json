@@ -104,6 +104,10 @@
         "random": "cpp",
         "util": "cpp",
         "assert": "cpp",
-        "gsl": "cpp"
-    }
+        "gsl": "cpp",
+        "circle.h": "c"
+    },
+    "cSpell.words": [
+        "Odiminox"
+    ]
 }
