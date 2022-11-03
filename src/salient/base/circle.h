@@ -33,7 +33,7 @@
 #ifndef _SALIENT_CIRCLE_H
 #define _SALIENT_CIRCLE_H
 
-#include "portability.h"
+#include "../portability.h"
 
 #ifdef __cplusplus
 extern "C" {
