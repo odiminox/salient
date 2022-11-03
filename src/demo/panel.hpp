@@ -31,8 +31,9 @@
  */
 #ifndef PANEL_HPP
 #define PANEL_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
-#include <salient/salient.hpp>
 
 #include "globals.hpp"
 

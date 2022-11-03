@@ -31,9 +31,10 @@
  */
 #ifndef MODULE_CREDITS_HPP
 #define MODULE_CREDITS_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
 #include <random>
-#include <salient/salient.hpp>
 #include <vector>
 
 struct MatrixLead {

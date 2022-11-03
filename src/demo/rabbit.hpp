@@ -31,8 +31,9 @@
  */
 #ifndef RABBIT_HPP
 #define RABBIT_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
-#include <salient/salient.hpp>
 
 class RabbitButton : public widget::StyleSheetSet {};
 

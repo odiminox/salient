@@ -102,6 +102,8 @@
         "fstream": "cpp",
         "variant": "cpp",
         "random": "cpp",
-        "util": "cpp"
+        "util": "cpp",
+        "assert": "cpp",
+        "gsl": "cpp"
     }
 }

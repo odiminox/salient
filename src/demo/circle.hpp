@@ -31,8 +31,9 @@
  */
 #ifndef CIRCLE_HPP
 #define CIRCLE_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
-#include <salient/salient.hpp>
 
 class Circle : public module::Module {
  public:

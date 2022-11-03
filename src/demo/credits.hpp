@@ -31,8 +31,9 @@
  */
 #ifndef CREDITS_HPP
 #define CREDITS_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
-#include <salient/salient.hpp>
 #include <string>
 
 class Credits : public widget::Widget {

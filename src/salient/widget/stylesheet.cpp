@@ -33,7 +33,7 @@
 
 #include <string.h>
 
-#include "salient.hpp"
+#include "salient.h"
 
 namespace widget {
 StyleSheetSet::StyleSheetSet() {

@@ -31,9 +31,10 @@
  */
 #ifndef MODULE_DEMO_HPP
 #define MODULE_DEMO_HPP
+#include <salient/salient.h>
+
 #include <libtcod/libtcod.hpp>
 #include <memory>
-#include <salient/salient.hpp>
 
 class Demo : public module::Module {
  public:

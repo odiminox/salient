@@ -8,7 +8,6 @@
       "name": "libtcod",
       "features": ["threads"]
     },
-    "ms-gsl",
     "sdl2"
   ]
 }

@@ -32,9 +32,7 @@
 #ifndef SALIENT_HPP
 #define SALIENT_HPP
 
-#include "libtcod.hpp"
-
-// signal/slot utility
+#ifdef __cplusplus
 #include "base/circle.hpp"
 #include "base/font.hpp"
 #include "base/key.hpp"
@@ -49,6 +47,7 @@
 #include "imod/bsod.hpp"
 #include "imod/credits.hpp"
 #include "imod/speed.hpp"
+#include "libtcod.hpp"
 #include "logger/log.hpp"
 #include "module/factory.hpp"
 #include "module/module.hpp"
@@ -56,5 +55,6 @@
 #include "widget/button.hpp"
 #include "widget/checkbox.hpp"
 #include "widget/widget.hpp"
+#endif  // __cplusplus
 
 #endif
