@@ -190,7 +190,7 @@ Engine::Engine(const char* fileName, RegisterCallbackFlag flag) {
   logger::Log::openBlock("Engine::Engine | Instantiating the engine object.");
   // load configuration variables
   config::Config::load(fileName);
-  setWindowTitle("%s ver. %s (%s)", UMBRA_TITLE, UMBRA_VERSION, UMBRA_STATUS);
+  setWindowTitle("%s ver. %s (%s)", SALIENT_TITLE, SALIENT_VERSION, SALIENT_STATUS);
   engineInstance = this;
   // register internal modules
   registerInternalModule(INTERNAL_SPEEDOMETER, new imod::ModSpeed());

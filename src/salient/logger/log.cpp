@@ -49,15 +49,15 @@ void Log::initialise() {
   out = fopen("log.txt", "w");
   fmt::fprintf(
       out,
-      UMBRA_TITLE " ver. " UMBRA_VERSION " (" UMBRA_STATUS
-                  ") Log file, Running time on creation: %dms.\n"
-                  "---===---\n"
-                  "INF. = INFORMATION. Informative message.\n"
-                  "NOT. = NOTICE. Something unexpected that does not affect the program execution.\n"
-                  "WAR. = WARNING. An error that may potentially provoke some misbehaviour.\n"
-                  "ERR. = ERROR. An error that is guaranteed to provoke some misbehaviour.\n"
-                  "FAT. = FATAL ERROR. An error that prevents the program from continuing.\n"
-                  "---===---",
+      SALIENT_TITLE " ver. " SALIENT_VERSION " (" SALIENT_STATUS
+                    ") Log file, Running time on creation: %dms.\n"
+                    "---===---\n"
+                    "INF. = INFORMATION. Informative message.\n"
+                    "NOT. = NOTICE. Something unexpected that does not affect the program execution.\n"
+                    "WAR. = WARNING. An error that may potentially provoke some misbehaviour.\n"
+                    "ERR. = ERROR. An error that is guaranteed to provoke some misbehaviour.\n"
+                    "FAT. = FATAL ERROR. An error that prevents the program from continuing.\n"
+                    "---===---",
       SDL_GetTicks());
   fflush(out);
 }
