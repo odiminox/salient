@@ -30,27 +30,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** \file salient_c.c
- *
- *  To statically link a C/C++ program with salient:
- *
- *  * Add `salient_c.c` and `salient.cpp` to your list of source files to
- *    compile.
- *  * Add `vendor/` as an include directory.
- *  * Add `SDL2` to be dynamically linked, and add its include directory.
- *    You can get the development libraries from:
- *    https://www.libsdl.org/download-2.0.php
- *  * Add `GL` to be dynamically linked.
- *  * Compile and link salient's src/vendor/glad.c file.
- *  * Compile and link salient's src/vendor/lodepng.cpp file.
- *  * Compile and link `src/vendor/utf8proc/utf8proc.c`.
- *  * Link with `zlib`, and add its include directory.  You can include
- *    salient's src/vendor/zlib directory and compile all `.c` files in there
- *    to statically link it.
- *
- *  You can define `NO_OPENGL` to remove the dependency on the GL library.
- *  You can also define `SALIENT_BARE` to remove the dependency on SDL2 and GL.
- */
+#ifndef SALIENT_GLOBALS_H_
+#define SALIENT_GLOBALS_H_
 
-//#include "../vendor/stb.c"
-//#include "base/circle.c"
+#include "config.h"
+
+#endif  // SALIENT_GLOBALS_H_

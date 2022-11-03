@@ -32,6 +32,10 @@
 #ifndef SALIENT_HPP
 #define SALIENT_HPP
 
+#include "base/circle.h"
+#include "version.h"
+#include "globals.h"
+
 #ifdef __cplusplus
 #include "base/circle.hpp"
 #include "base/font.hpp"
