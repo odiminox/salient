@@ -33,16 +33,16 @@
 #ifndef _SALIENT_CIRCLE_H
 #define _SALIENT_CIRCLE_H
 
-#include "../portability.h"
+#include "portability.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-SALIENT_API void SALIENT_circle_set_pos();
-SALIENT_API void SALIENT_circle_set_radius();
-SALIENT_API bool SALIENT_circle_contains();
-SALIENT_API bool SALIENT_circle_mouse();
+SALIENT_API void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data);
+SALIENT_API void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data);
+SALIENT_API bool SALIENT_circle_contains(SALIENT_circle_data_t* data);
+SALIENT_API bool SALIENT_circle_mouse(SALIENT_circle_data_t* data);
 
 typedef struct {
   int x;
