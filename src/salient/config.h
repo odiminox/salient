@@ -33,40 +33,40 @@
 #define SALIENT_CONFIG_H_
 
 /* DLL export */
-#ifndef SALIENT_API
+#ifndef SALIENTLIB_API
 #ifdef SALIENT_STATIC
-#define SALIENT_API
+#define SALIENTLIB_API
 #elif defined _WIN32 || defined __CYGWIN__ || defined __MINGW32__
-#ifdef SALIENT_EXPORTS
+#ifdef SALIENTLIB_EXPORTS
 #ifdef __GNUC__
-#define SALIENT_API __attribute__((dllexport))
+#define SALIENTLIB_API __attribute__((dllexport))
 #else
-#define SALIENT_API __declspec(dllexport)
+#define SALIENTLIB_API __declspec(dllexport)
 #endif  // __GNUC__
 #else
 #ifdef __GNUC__
-#define SALIENT_API __attribute__((dllimport))
+#define SALIENTLIB_API __attribute__((dllimport))
 #else
-#define SALIENT_API __declspec(dllimport)
+#define SALIENTLIB_API __declspec(dllimport)
 #endif  // __GNUC__
-#endif  // SALIENT_EXPORTS
+#endif  // SALIENTLIB_EXPORTS
 #elif __GNUC__ >= 4
-#define SALIENT_API __attribute__((visibility("default")))
+#define SALIENTLIB_API __attribute__((visibility("default")))
 #else
-#define SALIENT_API
+#define SALIENTLIB_API
 #endif
-#endif  // SALIENT_API
+#endif  // SALIENTLIB_API
 
-#ifndef SALIENT_CAPI
+#ifndef SALIENTLIB_CAPI
 #ifdef __cplusplus
-#define SALIENT_CAPI extern "C" SALIENT_API
+#define SALIENTLIB_CAPI extern "C" SALIENTLIB_API
 #else
-#define SALIENT_CAPI SALIENT_API
+#define SALIENTLIB_CAPI SALIENTLIB_API
 #endif  // __cplusplus
-#endif  // SALIENT_CAPI
+#endif  // SALIENTLIB_CAPI
 
 // Publicly visible symbols and functions.
-#define TCOD_PUBLIC SALIENT_API
+#define SALIENT_PUBLIC SALIENTLIB_API
 
 // Private hidden symbols.
 #if __GNUC__ >= 4
@@ -100,12 +100,12 @@
 
 #ifdef __GNUC__
 // Tells GCC the these functions are printf-like.
-#define SALIENT_PRINTF(str_index, first_arg) __attribute__((format(printf, str_index, first_arg)))
+#define SALIENTLIB_PRINTF(str_index, first_arg) __attribute__((format(printf, str_index, first_arg)))
 #else
-#define SALIENT_PRINTF(str_index, first_arg)
+#define SALIENTLIB_PRINTF(str_index, first_arg)
 #endif
 
-#define SALIENT_FORMAT SALIENT_PRINTF
+#define SALIENTLIB_FORMAT SALIENTLIB_PRINTF
 
 #if defined(__cplusplus) && __cplusplus >= 201703L && !defined(__clang__)
 #define SALIENT_NODISCARD [[nodiscard]]

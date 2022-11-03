@@ -33,15 +33,13 @@
 
 static SALIENT_circle_data_t circle_data;
 
-void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data) {
+void SALIENTLIB_circle_set_pos(int x, int y, SALIENT_circle_data_t* data) {
   data->x = x;
   data->y = y;
 }
 
-void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data) {
-  data->r = r;
-}
+void SALIENTLIB_circle_set_radius(int r, SALIENT_circle_data_t* data) { data->r = r; }
 
-bool SALIENT_circle_contains(SALIENT_circle_data_t* data) { return true; }
+bool SALIENTLIB_circle_contains(SALIENT_circle_data_t* data) { return true; }
 
-bool SALIENT_circle_mouse(SALIENT_circle_data_t* data) { return true; }
+bool SALIENTLIB_circle_mouse(SALIENT_circle_data_t* data) { return true; }
