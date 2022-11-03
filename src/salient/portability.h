@@ -119,6 +119,19 @@
 /* bool type */
 #include <stdbool.h>
 
+/**
+    Allocate and return a duplicate of string `s`.  The returned memory must be freed manually.
+ */
+SALIENT_CAPI char* SALIENT_strdup(const char* s);
+/***************************************************************************
+    @brief Compare two ASCII strings ignoring case. Returns 0 if the strings are equal.
+ */
+SALIENT_CAPI int SALIENT_strcasecmp(const char* s1, const char* s2);
+/***************************************************************************
+    @brief Compare two ASCII strings ignoring case. Returns 0 if the strings are equal.
+ */
+SALIENT_CAPI int SALIENT_strncasecmp(const char* s1, const char* s2, size_t n);
+
 /* Define vswprintf across platforms. */
 #ifdef _WIN32
 #define vswprintf _vsnwprintf /* Windows */
