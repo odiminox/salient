@@ -105,7 +105,9 @@
         "util": "cpp",
         "assert": "cpp",
         "gsl": "cpp",
-        "circle.h": "c"
+        "circle.h": "c",
+        "portability.h": "c",
+        "config.h": "c"
     },
     "cSpell.words": [
         "Odiminox"

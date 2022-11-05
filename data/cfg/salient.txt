@@ -1,5 +1,5 @@
 /*
- * UMBRA CONFIGURATION FILE
+ * SALIENT CONFIGURATION FILE
  *
  * rootWidth (integer): width of the root console in cells
  * rootHeight (integer): height of the root console in cells

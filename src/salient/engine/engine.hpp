@@ -88,12 +88,12 @@ class Engine {
    * @param fileName the filename from which to read Umbra's configuration.
    * @param flag the callback registering flags, used to choose which callbacks are to be registered in the application.
    */
-  Engine(const char* fileName = "data/cfg/umbra.txt", RegisterCallbackFlag flag = REGISTER_DEFAULT);
+  Engine(const char* fileName = "data/cfg/salient.txt", RegisterCallbackFlag flag = REGISTER_DEFAULT);
   /**
    * The constructor.
    * @param flag the callback registering flags, used to choose which callbacks are to be registered in the application.
    */
-  Engine(RegisterCallbackFlag flag) : Engine{"data/cfg/umbra.txt", flag} {}
+  Engine(RegisterCallbackFlag flag) : Engine{"data/cfg/salient.txt", flag} {}
 
   ~Engine();
 

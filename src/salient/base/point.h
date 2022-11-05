@@ -33,8 +33,9 @@
 #ifndef _SALIENT_POINT_H
 #define _SALIENT_POINT_H
 
-#include "../portability.h"
 #include <libtcod/mouse_types.h>
+
+#include "../portability.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,11 +49,11 @@ typedef struct {
 } SALIENT_points_data_t;
 
 SALIENTLIB_API void SALIENT_point_set(int x, int y, SALIENT_points_data_t* data);
-SALIENTLIB_API bool SALIENT_point_is(int x, int y, SALIENT_points_data_t* data);
-SALIENTLIB_API bool SALIENT_point_is(SALIENT_points_data_t* point, SALIENT_points_data_t* data);
-SALIENTLIB_API void SALIENT_point_mouse(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
-SALIENTLIB_API void SALIENT_point_mouse(SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
-
+SALIENTLIB_API bool SALIENT_point_is_xy(int x, int y, SALIENT_points_data_t* data);
+SALIENTLIB_API bool SALIENT_point_is_point(SALIENT_points_data_t* point, SALIENT_points_data_t* data);
+SALIENTLIB_API void SALIENT_point_mouse_xy(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
+SALIENTLIB_API void SALIENT_point_mouse_point(
+    SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
 
 #ifdef __cplusplus
 }  // extern "C"

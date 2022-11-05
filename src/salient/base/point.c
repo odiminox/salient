@@ -32,29 +32,20 @@
 
 #include "point.h"
 
-void SALIENT_point_set(int x, int y, SALIENT_points_data_t* data)
-{
+void SALIENT_point_set(int x, int y, SALIENT_points_data_t* data) {
   data->x = x;
   data->y = y;
 }
 
-bool SALIENT_point_is(int x, int y, SALIENT_points_data_t* data)
-{
-  return ((data->x == x) && (data->y == y));
-}
+bool SALIENT_point_is_xy(int x, int y, SALIENT_points_data_t* data) { return ((data->x == x) && (data->y == y)); }
 
-bool SALIENT_point_is(SALIENT_points_data_t* point, SALIENT_points_data_t* data)
-{
-  return &point == &data;
-}
+bool SALIENT_point_is_point(SALIENT_points_data_t* point, SALIENT_points_data_t* data) { return &point == &data; }
 
-void SALIENT_point_mouse(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data)
-{
+void SALIENT_point_mouse_xy(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data) {
   data->mouse_hover = SALIENT_point_is(x, y, data);
   data->mouse_down = data->mouse_hover & ms->lbutton;
 }
-void SALIENT_point_mouse(SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data)
-{
+void SALIENT_point_mouse_point(SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data) {
   data->mouse_hover = SALIENT_point_is(point);
   data->mouse_down = data->mouse_hover = ms->lbutton;
 }
