@@ -33,7 +33,7 @@
 #ifndef _SALIENT_CIRCLE_H
 #define _SALIENT_CIRCLE_H
 
-#include "../../../../libtcod/src/libtcod/mouse_types.h"
+#include <libtcod/src/libtcod/mouse_types.h>
 #include "../portability.h"
 #include "point.h"
 

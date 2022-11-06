@@ -32,8 +32,7 @@
 
 #ifndef _SALIENT_POINT_H
 #define _SALIENT_POINT_H
-
-#include "../../../../libtcod/src/libtcod/mouse_types.h"
+#include <libtcod/src/libtcod/mouse_types.h>
 
 #include "../portability.h"
 
