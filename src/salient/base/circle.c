@@ -31,15 +31,52 @@
  */
 #include "circle.h"
 
-static SALIENT_circle_data_t circle_data;
-
-void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data) {
-  data->x = x;
-  data->y = y;
+void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data)
+{
+    data->x = x;
+    data->y = y;
 }
 
-void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data) { data->r = r; }
+void SALIENT_circle_set_pos_with_point(SALIENT_points_data_t* point_data, SALIENT_circle_data_t* data)
+{
+  data->x = point_data->x;
+  data->y =  point_data->y;
+}
 
-bool SALIENT_circle_contains(SALIENT_circle_data_t* data) { return true; }
+void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data)
+{
+  data->r = r;
+}
 
-bool SALIENT_circle_mouse(SALIENT_circle_data_t* data) { return true; }
+void SALIENT_circle_set(int x, int y, int r, SALIENT_circle_data_t* data)
+{
+  SALIENT_circle_set_pos(x, y, data);
+  SALIENT_circle_set_radius(r, data);
+}
+
+void SALIENT_circle_set_with_point(SALIENT_points_data_t* point_data, int r, SALIENT_circle_data_t* data)
+{
+  SALIENT_circle_set_pos_with_point(point_data, data);
+  SALIENT_circle_set_radius(data, r);
+}
+
+bool SALIENT_circle_contains(int x, int y, SALIENT_circle_data_t* data)
+{
+  return (data->x - x) * (data->x - x) + (data->y - x) * (data->y - y) <= data->r * data->r;
+}
+bool SALIENT_circle_contains_point(SALIENT_points_data_t* point_data, SALIENT_circle_data_t* data)
+{
+  return (data->x - point_data->x) * (data->x - point_data->x) + (data->y - point_data->x) * (data->y - point_data->y) <= data->r * data->r;
+}
+
+void SALIENT_circle_mouse(int x, int y, TCOD_mouse_t* m, SALIENT_circle_data_t* data)
+{
+  data->mouse_hover = SALIENT_circle_contains(x, y, data);
+  data->mouse_down = data->mouse_hover & m->lbutton;
+}
+
+void SALIENT_circle_mouse_with_point(SALIENT_points_data_t* point_data, TCOD_mouse_t* m, SALIENT_circle_data_t* data)
+{
+  data->mouse_hover = SALIENT_circle_contains_point(point_data, data);
+  data->mouse_down = data->mouse_hover & m->lbutton;
+}

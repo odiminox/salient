@@ -33,7 +33,9 @@
 #ifndef _SALIENT_CIRCLE_H
 #define _SALIENT_CIRCLE_H
 
+#include "../../../../libtcod/src/libtcod/mouse_types.h"
 #include "../portability.h"
+#include "point.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,9 +50,14 @@ typedef struct {
 } SALIENT_circle_data_t;
 
 SALIENTLIB_API void SALIENT_circle_set_pos(int x, int y, SALIENT_circle_data_t* data);
+SALIENTLIB_API void SALIENT_circle_set_pos_with_point(SALIENT_points_data_t* point_data, SALIENT_circle_data_t* data);
 SALIENTLIB_API void SALIENT_circle_set_radius(int r, SALIENT_circle_data_t* data);
-SALIENTLIB_API bool SALIENT_circle_contains(SALIENT_circle_data_t* data);
-SALIENTLIB_API bool SALIENT_circle_mouse(SALIENT_circle_data_t* data);
+SALIENTLIB_API void SALIENT_circle_set(int x, int y, int r, SALIENT_circle_data_t* data);
+SALIENTLIB_API void SALIENT_circle_set_with_point(SALIENT_points_data_t* point_data, int r, SALIENT_circle_data_t* data);
+SALIENTLIB_API bool SALIENT_circle_contains(int x, int y, SALIENT_circle_data_t* data);
+SALIENTLIB_API bool SALIENT_circle_contains_point(SALIENT_points_data_t* point_data, SALIENT_circle_data_t* data);
+SALIENTLIB_API void SALIENT_circle_mouse(int x, int y, TCOD_mouse_t* m, SALIENT_circle_data_t* data);
+SALIENTLIB_API void SALIENT_circle_mouse_with_point(SALIENT_points_data_t* point_data, TCOD_mouse_t* m, SALIENT_circle_data_t* data);
 
 #ifdef __cplusplus
 }  // extern "C"
