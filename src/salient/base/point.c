@@ -32,6 +32,7 @@
 
 #include "point.h"
 
+
 void SALIENT_point_set(int x, int y, SALIENT_points_data_t* data) {
   data->x = x;
   data->y = y;

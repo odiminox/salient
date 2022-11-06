@@ -32,6 +32,7 @@
 #ifndef SALIENT_HPP
 #define SALIENT_HPP
 
+#include "base/point.h"
 #include "base/circle.h"
 #include "version.h"
 #include "globals.h"

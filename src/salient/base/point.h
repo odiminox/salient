@@ -33,13 +33,14 @@
 #ifndef _SALIENT_POINT_H
 #define _SALIENT_POINT_H
 
-#include <libtcod/mouse_types.h>
+#include "../../../../libtcod/src/libtcod/mouse_types.h"
 
 #include "../portability.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 
 typedef struct {
   int x;
@@ -54,6 +55,8 @@ SALIENTLIB_API bool SALIENT_point_is_point(SALIENT_points_data_t* point, SALIENT
 SALIENTLIB_API void SALIENT_point_mouse_xy(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
 SALIENTLIB_API void SALIENT_point_mouse_point(
     SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data);
+
+
 
 #ifdef __cplusplus
 }  // extern "C"
