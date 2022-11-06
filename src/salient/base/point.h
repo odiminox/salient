@@ -49,6 +49,7 @@ typedef struct {
   bool mouse_down;
 } SALIENT_points_data_t;
 
+
 SALIENTLIB_API void SALIENT_point_set(int x, int y, SALIENT_points_data_t* data);
 SALIENTLIB_API bool SALIENT_point_is_xy(int x, int y, SALIENT_points_data_t* data);
 SALIENTLIB_API bool SALIENT_point_is_point(SALIENT_points_data_t* point, SALIENT_points_data_t* data);

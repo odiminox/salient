@@ -43,10 +43,10 @@ bool SALIENT_point_is_xy(int x, int y, SALIENT_points_data_t* data) { return ((d
 bool SALIENT_point_is_point(SALIENT_points_data_t* point, SALIENT_points_data_t* data) { return &point == &data; }
 
 void SALIENT_point_mouse_xy(int x, int y, TCOD_mouse_t* ms, SALIENT_points_data_t* data) {
-  data->mouse_hover = SALIENT_point_is(x, y, data);
+  data->mouse_hover = SALIENT_point_is_xy(x, y, data);
   data->mouse_down = data->mouse_hover & ms->lbutton;
 }
 void SALIENT_point_mouse_point(SALIENT_points_data_t* point, TCOD_mouse_t* ms, SALIENT_points_data_t* data) {
-  data->mouse_hover = SALIENT_point_is(point);
+  data->mouse_hover = SALIENT_point_is_point(point, data);
   data->mouse_down = data->mouse_hover = ms->lbutton;
 }
