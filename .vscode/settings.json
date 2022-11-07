@@ -107,7 +107,8 @@
         "gsl": "cpp",
         "circle.h": "c",
         "portability.h": "c",
-        "config.h": "c"
+        "config.h": "c",
+        "point.h": "c"
     },
     "cSpell.words": [
         "Odiminox"
