@@ -2,3 +2,9 @@
 	path = vcpkg
 	url = https://github.com/microsoft/vcpkg.git
 	shallow = true
+[submodule "external/EmberScript"]
+	path = external/EmberScript
+	url = https://github.com/simondevenish/EmberScript.git
+[submodule "external/libtcod"]
+	path = external/libtcod
+	url = https://github.com/libtcod/libtcod.git
